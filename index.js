@@ -49,7 +49,7 @@ app.use("/images", express.static(path.join(__dirname, "assets")));
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your frontend origin
+    origin: "https://server-mt6w.onrender.com:5173", // Your frontend origin
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
@@ -272,8 +272,8 @@ app.get("/test-pdf", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Backend server listening at http://localhost:${port}`);
+  console.log(`Backend server listening at https://server-mt6w.onrender.com:${port}`);
   console.log(
-    `Open http://localhost:${port}/test-pdf to generate the full Kundali PDF`
+    `Open https://server-mt6w.onrender.com:${port}/test-pdf to generate the full Kundali PDF`
   );
 });
