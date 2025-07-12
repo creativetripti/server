@@ -1,0 +1,77 @@
+<%# views/partials/_gulikadi-group.ejs - Displays Gulikadi Group information %>
+
+<% /* This partial expects 'gulikadiData' object */ %>
+
+<div class="w-full text-left">
+    <h1 class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'गुलिकादि समूह' : gulikadiData.heading %>
+    </h1>
+
+    <p class="leading-relaxed mb-3 text-md" style="color: #724121;">
+        <% if (customer.lang === 'hi') { %>
+            गुलिकादि उपग्रह समूह ज्योतिष में एक महत्वपूर्ण पहलू है, विशेष रूप से उपग्रह गुलिका से जुड़ा है, जो शनि ग्रह से संबंधित है। यह समूह कुछ ज्योतिषीय पहलुओं को निर्धारित करने में एक अनूठी भूमिका निभाता है। गुलिकादि समूह की गणना में उदय समय के निश्चित मूल्यों पर विचार करना शामिल है। इन मूल्यों का उपयोग समूह के भीतर उपग्रहों के देशांतर का पता लगाने के लिए किया जाता है, जो किसी व्यक्ति की ज्योतिषीय प्रोफ़ाइल की व्यापक समझ में योगदान देता है। परिणाम, जिसे अक्सर एस्ट्रो-विजन होरोस्कोप में MAANDI के रूप में प्रस्तुत किया जाता है, को रासी चार्ट में मुख्य ग्रहों के साथ एकीकृत किया जाता है, जो किसी व्यक्ति के जन्म के समय आकाशीय प्रभावों पर एक अधिक सूक्ष्म और विस्तृत परिप्रेक्ष्य प्रदान करता है।
+        <% } else { %>
+            The Gulikadi Group of Sub-Planets is a significant aspect in astrology, particularly associated with the sub-planet Gulika, which is linked to the planet Saturn. This group plays a unique role in determining certain astrological aspects. The calculation of the Gulikadi group involves considering fixed values of rise time. These values are employed to find the longitude of the sub-planets within the group, contributing to the comprehensive understanding of an individual's astrological profile. The results, often presented as the MAANDI in an Astro-Vision Horoscope, are integrated into the Rasi Chart alongside the principal planets, providing a more nuanced and detailed perspective on the celestial influences at the time of an individual's birth.
+        <% } %>
+    </p>
+    <p class="leading-relaxed mb-6 text-md" style="color: #724121;">
+        <% if (customer.lang === 'hi') { %>
+            ज्योतिष में, गुलिका का व्यक्ति के जीवन पर अपना अलग प्रभाव माना जाता है, जो करियर, रिश्तों और समग्र कल्याण जैसे विभिन्न पहलुओं को प्रभावित करता है। ज्योतिषी गुलिकादि समूह की गणना का उपयोग विशिष्ट ग्रहों की स्थिति और उनके संभावित प्रभावों में अंतर्दृष्टि प्रदान करने के लिए करते हैं। यह ज्योतिषीय विश्लेषण में गहराई की एक परत जोड़ता है, जिससे किसी व्यक्ति की जन्म कुंडली की अधिक व्यापक व्याख्या और उनके भाग्य को आकार देने वाली आकाशीय शक्तियों की अधिक सूक्ष्म समझ में सुविधा मिलती है।
+        <% } else { %>
+            In astrology, Gulika is believed to have its own distinct impact on an individual's life, influencing various aspects such as career, relationships, and overall well-being. Astrologers use the Gulikadi Group's calculations to provide insights into specific planetary positions and their potential influences. This adds a layer of depth to astrological analyses, allowing for a more comprehensive interpretation of an individual's birth chart and facilitating a more nuanced understanding of the celestial forces shaping their destiny.
+        <% } %>
+    </p>
+
+    <% if (gulikadiData.table && gulikadiData.table.length > 0) { %>
+        <div class="overflow-x-auto w-full mb-8 rounded-md">
+            <table class="w-full text-left text-md table-auto">
+                <thead>
+                    <tr class="text-white text-md" style="background-color: #724121;">
+                        <th class="px-1 py-3 text-left min-w-[70px]"><%= customer.lang === 'hi' ? 'ग्रह' : 'Planet' %></th>
+                        <th class="px-1 py-3 text-left min-w-[80px]"><%= customer.lang === 'hi' ? 'उपग्रह' : 'Upagraha' %></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% gulikadiData.table.forEach((row, index) => { %>
+                        <%
+                            let rowClass = 'text-md';
+                            if (index % 2 !== 0) {
+                                rowClass += ' bg-gray-50';
+                            }
+                        %>
+                        <tr class="<%= rowClass %>">
+                            <td class="px-1 py-3 whitespace-nowrap" style="color: #724121;">
+                                <% if (customer.lang === 'hi') { %>
+                                    <% if (row['Planet'] === 'Sun') { %>सूर्य
+                                    <% } else if (row['Planet'] === 'Mercury') { %>बुध
+                                    <% } else if (row['Planet'] === 'Mars') { %>मंगल
+                                    <% } else if (row['Planet'] === 'Jupiter') { %>बृहस्पति
+                                    <% } else if (row['Planet'] === 'Saturn') { %>शनि
+                                    <% } else { %>
+                                        <%= row['Planet'] %>
+                                    <% } %>
+                                <% } else { %>
+                                    <%= row['Planet'] %>
+                                <% } %>
+                            </td>
+                            <td class="px-1 py-3 whitespace-nowrap" style="color: #724121;">
+                                <% if (customer.lang === 'hi') { %>
+                                    <% if (row['Upagraha'] === 'Kala') { %>काल
+                                    <% } else if (row['Upagraha'] === 'Ardhaprahara') { %>अर्धप्रहर
+                                    <% } else if (row['Upagraha'] === 'Mrityu') { %>मृत्यु
+                                    <% } else if (row['Upagraha'] === 'Yamakantaka') { %>यमकांतक
+                                    <% } else if (row['Upagraha'] === 'Gulika') { %>गुलिका
+                                    <% } else { %>
+                                        <%= row['Upagraha'] %>
+                                    <% } %>
+                                <% } else { %>
+                                    <%= row['Upagraha'] %>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } %>
+</div>

@@ -1,0 +1,108 @@
+<%
+  const gemstoneTitles = {
+    lucky_stone: 'Lucky Stone',
+    life_stone: 'Life Stone',
+    dasha_stone: 'Dasha Stone'
+  };
+
+  const gemstoneTitlesHindi = {
+    lucky_stone: 'भाग्यशाली रत्न',
+    life_stone: 'जीवन रत्न',
+    dasha_stone: 'दशा रत्न'
+  };
+
+  const dayMap = {
+    "Monday": "सोमवार",
+    "Tuesday": "मंगलवार",
+    "Wednesday": "बुधवार",
+    "Thursday": "गुरुवार",
+    "Friday": "शुक्रवार",
+    "Saturday": "शनिवार",
+    "Sunday": "रविवार"
+  };
+
+  const fingerMap = {
+    "Ring Finger": "अनामिका उंगली",
+    "Little Finger": "कनिष्ठिका उंगली",
+    "Index Finger": "तर्जनी उंगली",
+    "Middle Finger": "मध्यमा उंगली"
+  };
+
+  const translateText = (text, lang, category) => {
+    if (lang === 'hi') {
+      if (category === 'day') return dayMap[text] || text;
+      if (category === 'finger') return fingerMap[text] || text;
+      // Add other specific mappings here if needed
+    }
+    return text;
+  };
+
+  const primary = gemstone?.gemstones?.Primary?.split(', ') || [];
+  const secondary = gemstone?.gemstones?.Secondary?.split(', ') || [];
+  const allStones = [...primary, ...secondary];
+%>
+
+<% if (gemstone) { %>
+<div class="w-full text-left p-4">
+  <div style="background-color: #724121; color: white;" class="p-3 rounded-t-lg shadow-md mb-4 text-center">
+    <h2 class="text-2xl font-semibold">
+      <% if (customer.lang === 'hi') { %>
+        <%= gemstoneTitlesHindi[gemstoneType] || 'रत्न' %>
+      <% } else { %>
+        <%= gemstoneTitles[gemstoneType] || 'Gemstone' %>
+      <% } %>
+    </h2>
+  </div>
+
+  <% if (allStones.length > 0) { %>
+  <div class="flex justify-center flex-wrap gap-4 p-4 border rounded-lg mb-6" style="border-color: #724121; background-color: #F8F0EC;"> <%# A lighter shade for the background %>
+    <% allStones.forEach(stone => { %>
+      <div class="text-center">
+        <p class="text-sm font-medium" style="color: #724121;"><%= customer.lang === 'hi' ? translateText(stone, 'hi', 'gemstone') : stone %><% if (allStones.indexOf(stone) < allStones.length - 1) { %>,<% } %></p>
+      </div>
+    <% }); %>
+  </div>
+  <% } %>
+
+  <table class="min-w-full text-sm divide-y divide-gray-200 border">
+    <tbody class="bg-white divide-y divide-gray-100">
+      <% if (gemstone.day_to_wear) { %>
+      <tr>
+        <td class="px-6 py-3 font-medium w-1/3" style="color: #724121;">
+          <%= customer.lang === 'hi' ? 'पहनने का दिन' : 'Day to Wear' %>
+        </td>
+        <td class="px-6 py-3 w-2/3" style="color: #724121;"><%= translateText(gemstone.day_to_wear, customer.lang, 'day') %></td>
+      </tr>
+      <% } %>
+      <% if (gemstone.finger_to_wear) { %>
+      <tr style="background-color: #f9fafb;"> <%# Using a very light gray for alternating rows %>
+        <td class="px-6 py-3 font-medium" style="color: #724121;">
+          <%= customer.lang === 'hi' ? 'पहनने वाली उंगली' : 'Finger to Wear' %>
+        </td>
+        <td class="px-6 py-3" style="color: #724121;"><%= translateText(gemstone.finger_to_wear, customer.lang, 'finger') %></td>
+      </tr>
+      <% } %>
+      <% if (gemstone.time_to_wear) { %>
+      <tr>
+        <td class="px-6 py-3 font-medium" style="color: #724121;">
+          <%= customer.lang === 'hi' ? 'पहनने का समय' : 'Time to Wear' %>
+        </td>
+        <td class="px-6 py-3" style="color: #724121;"><%= gemstone.time_to_wear %></td>
+      </tr>
+      <% } %>
+      <% if (gemstone.mantra) { %>
+      <tr style="background-color: #f9fafb;">
+        <td class="px-6 py-3 font-medium" style="color: #724121;">
+          <%= customer.lang === 'hi' ? 'मंत्र' : 'Mantra' %>
+        </td>
+        <td class="px-6 py-3" style="color: #724121;"><%= gemstone.mantra %></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+<% } else { %>
+  <p class="text-center p-4" style="color: #724121;">
+    <%= customer.lang === 'hi' ? 'कोई रत्न डेटा उपलब्ध नहीं है।' : 'No gemstone data available.' %>
+  </p>
+<% } %>

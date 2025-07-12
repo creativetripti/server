@@ -1,0 +1,61 @@
+<% if (showIntro) { %>
+  <h1 class="text-center text-2xl font-semibold mb-5 section-title" style="color: #724121;">
+    <%= customer.lang === 'hi' ? AscendantReport.ascendant_hi : AscendantReport.ascendant %> <%= customer.lang === 'hi' ? 'लग्न रिपोर्ट' : 'Ascendant Report' %>
+  </h1>
+
+  <div class="flex flex-wrap gap-6 justify-center items-start mb-6">
+    <div class="text-center">
+      <img
+        src="<%= AscendantReport.image %>"
+        alt="<%= AscendantReport.ascendant %> Image"
+        class="w-[150px] rounded shadow"
+      />
+    </div>
+
+    <div class="text-xs">
+      <div class="overflow-x-auto border rounded-md shadow">
+        <table class="min-w-full table-auto border-collapse">
+          <tbody>
+            <tr class="text-white" style="background-color: #724121;">
+              <th class="py-2 px-3 text-left"><%= customer.lang === 'hi' ? 'स्वामी' : 'Lord' %></th>
+              <td class="py-2 px-3 bg-white text-gray-800" style="color: #724121;"><%= customer.lang === 'hi' ? AscendantReport.planetary_lord_hi : AscendantReport.planetary_lord %></td>
+            </tr>
+            <tr class="text-white" style="background-color: #724121;">
+              <th class="py-2 px-3 text-left"><%= customer.lang === 'hi' ? 'प्रतीक' : 'Symbol' %></th>
+              <td class="py-2 px-3 bg-white text-gray-800" style="color: #724121;"><%= AscendantReport.symble %></td>
+            </tr>
+            <tr class="text-white" style="background-color: #724121;">
+              <th class="py-2 px-3 text-left"><%= customer.lang === 'hi' ? 'विशेषताएँ' : 'Characteristics' %></th>
+              <td class="py-2 px-3 bg-white text-gray-800" style="color: #724121;"><%= customer.lang === 'hi' ? AscendantReport.characteristics_hi : AscendantReport.characteristics %></td>
+            </tr>
+            <tr class="text-white" style="background-color: #724121;">
+              <th class="py-2 px-3 text-left"><%= customer.lang === 'hi' ? 'उपवास का दिन' : 'Day of Fast' %></th>
+              <td class="py-2 px-3 bg-white text-gray-800" style="color: #724121;"><%= customer.lang === 'hi' ? AscendantReport.day_of_fast_hi : AscendantReport.day_of_fast %></td>
+            </tr>
+            <tr class="text-white" style="background-color: #724121;">
+              <th class="py-2 px-3 text-left"><%= customer.lang === 'hi' ? 'भाग्यशाली रत्न' : 'Lucky Gems' %></th>
+              <td class="py-2 px-3 bg-white text-gray-800" style="color: #724121;">
+                <%
+                  const luckyStonesHi = AscendantReport.lucky_stone_hi || [];
+                  const luckyStonesEn = AscendantReport.lucky_stone || [];
+                %>
+                <%= customer.lang === 'hi' ? luckyStonesHi.join(', ') : luckyStonesEn.join(', ') %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% } %>
+
+<% if (analysisChunk && analysisChunk.length) { %>
+  <div class="mt-4 ascendant-description text-sm">
+    <% analysisChunk.forEach(([title, content]) => { %>
+      <div class="mb-6">
+        <h2 class="text-lg font-semibold capitalize mb-2" style="color: #724121;"><%= customer.lang === 'hi' ? title : title %></h2>
+        <p class="leading-relaxed" style="color: #724121;"><%= customer.lang === 'hi' ? content : content %></p>
+      </div>
+    <% }); %>
+  </div>
+<% } %>

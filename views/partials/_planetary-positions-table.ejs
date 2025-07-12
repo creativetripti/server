@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Planetary Positions</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fff;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 28px;
+      color: #724121; /* Changed to #724121 */
+      margin-bottom: 6px;
+    }
+
+    
+
+    .planet-table {
+      width: 80%;
+      border-collapse: collapse;
+      font-family: "Segoe UI", sans-serif;
+      font-size: 13px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: auto;
+    }
+
+    .planet-table thead {
+      background-color: #724121; /* Changed to #724121 */
+      color: white; /* Text color is white when background is #724121 */
+    }
+
+    .planet-table th,
+    .planet-table td {
+      padding: 10px 15px;
+      text-align: left;
+    }
+
+    .planet-table tbody tr:nth-child(even) {
+      background-color: #f4f4f4;
+    }
+
+    .planet-table tbody tr:nth-child(odd) {
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="title text-[#724121]"><%= customer.lang === 'hi' ? 'ग्रहों की स्थिति' : 'Planetary Positions' %></h2>
+
+    <div class="w-full mx-auto">
+      <table class="planet-table">
+        <thead>
+          <tr>
+            <th><%= customer.lang === 'hi' ? 'ग्रह' : 'Planets' %></th>
+            <th>R</th>
+            <th><%= customer.lang === 'hi' ? 'राशि' : 'Sign' %></th>
+            <th><%= customer.lang === 'hi' ? 'अंश' : 'Degrees' %></th>
+            <th><%= customer.lang === 'hi' ? 'राशि स्वामी' : 'Sign Lord' %></th>
+            <th><%= customer.lang === 'hi' ? 'नक्षत्र' : 'Nakshatra' %></th>
+            <th><%= customer.lang === 'hi' ? 'पद' : 'Pada' %></th>
+            <th><%= customer.lang === 'hi' ? 'नक्षत्र स्वामी' : 'Nakshatra Lord' %></th>
+            <th><%= customer.lang === 'hi' ? 'भाव' : 'House' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (Planetary && Planetary.data.planets && Planetary.data.planets.length) { %>
+            <% Planetary.data.planets.forEach((planet) => { %>
+              <tr>
+                <td><%= planet.name %></td>
+                <td><%= planet.is_retro === "true" ? "R" : "--" %></td>
+                <td><%= planet.sign %></td>
+                <td><%= planet.longitude %></td>
+                <td><%= planet.rashi_lord %></td>
+                <td><%= planet.nakshatra %></td>
+                <td><%= planet.nakshatra_pada %></td>
+                <td><%= planet.nakshatra_lord %></td>
+                <td><%= planet.house %></td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="9"><%= customer.lang === 'hi' ? 'कोई ग्रह संबंधी डेटा उपलब्ध नहीं है।' : 'No planetary data available.' %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

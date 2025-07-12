@@ -1,0 +1,65 @@
+<div class="p-6 max-w-screen-lg mx-auto">
+  <h1
+    class="text-center text-2xl font-semibold  pb-2 mb-8 relative"
+    style="color: #724121;"
+  >
+    <%= customer.lang === 'hi' ? 'कुंडली चार्ट' : 'Horoscope Charts' %>
+    <span
+      class="absolute left-1/2 -bottom-[6px] -translate-x-1/2 w-10 h-1 rounded-full"
+      style="background-color: #724121;"
+    ></span>
+  </h1>
+
+  <div class="flex w-full mb-8 pb-8">
+    <div class="w-[300px]">
+      <img
+        src="<%= HoroScopeChart[0].data?.data?.base64_image %>"
+        alt="<%= customer.lang === 'hi' ? 'लग्न चार्ट' : 'Lagna Chart' %>"
+        class="w-[80%] h-auto border"
+      />
+      <h2 class="text-center text-sm font-semibold mt-2" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'लग्न चार्ट (जन्म कुंडली)' : 'Lagna Chart (Birth Chart)' %>
+      </h2>
+    </div>
+
+    <div class="flex-1 text-sm leading-relaxed" style="color: #724121;">
+      <p>
+        <%= customer.lang === 'hi' ? 'लग्न, जिसे लग्न भी कहा जाता है, राशि चक्र के उस अंश को दर्शाता है जो किसी व्यक्ति के जन्म के दौरान पूर्वी क्षितिज से ऊपर उठ रहा होता है। यह महत्वपूर्ण बिंदु जन्म कुंडली या लग्न चार्ट के भीतर अत्यधिक महत्व रखता है। अनिवार्य रूप से, यह कुंडली के प्रारंभिक भाव को स्थापित करता है, जिसके बाद राशि चक्र के क्रम के अनुसार शेष भावों की व्यवस्था को आकार देता है। नतीजतन, लग्न न केवल उदय राशि को परिभाषित करता है, बल्कि चार्ट में मौजूद अन्य सभी भावों को चित्रित करने के लिए नींव के रूप में भी कार्य करता है।' : 'The Ascendant, also known as the Lagna, signifies the degree of the zodiac sign that is ascending above the eastern horizon during an individual\'s birth. This pivotal point holds immense significance within the natal or Lagna chart. Essentially, it establishes the initial house of the horoscope, subsequently shaping the arrangement of the remaining houses according to the sequence of the zodiac signs. As a result, the Lagna not only defines the rising sign but also serves as the foundation for delineating all the other houses present in the chart.' %>
+      </p>
+    </div>
+  </div>
+
+  <div class="flex flex-col md:flex-row gap-6">
+    <div class="w-full md:w-1/2">
+      <img
+        src="<%= HoroScopeChart[1].data?.data?.base64_image %>"
+        alt="<%= customer.lang === 'hi' ? 'चंद्र चार्ट' : 'Moon Chart' %>"
+        class="border w-[80%] h-auto"
+      />
+      <h2 class="text-center text-sm font-semibold mt-2" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'चंद्र चार्ट' : 'Moon Chart' %>
+      </h2>
+      <div class="text-sm" style="color: #724121;">
+        <p>
+          <%= customer.lang === 'hi' ? 'चंद्र चार्ट एक महत्वपूर्ण भविष्य कहनेवाला उपकरण के रूप में कार्य करता है, जिसमें ग्रहों के संयोजन का अधिक महत्व होता है जब वे चंद्र और लग्न चार्ट दोनों में प्रकट होते हैं।' : 'The Moon Chart serves as a crucial predictive instrument, with planetary combinations carrying greater significance when they manifest in both the Moon and Lagna Charts.' %>
+        </p>
+      </div>
+    </div>
+
+    <div class="w-full md:w-1/2">
+      <img
+        src="<%= HoroScopeChart[2].data?.data?.base64_image %>"
+        alt="<%= customer.lang === 'hi' ? 'नवमांश चार्ट' : 'Navmansha Chart' %>"
+        class="border w-[80%] h-auto"
+      />
+      <h2 class="text-center text-sm font-semibold mt-2" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'नवमांश चार्ट(D9)' : 'Navmansha Chart(D9)' %>
+      </h2>
+      <div class="text-sm" style="color: #724121;">
+        <p>
+          <%= customer.lang === 'hi' ? 'विभिन्न प्रभागीय चार्टों में, नवमांश चार्ट का सबसे अधिक महत्व है। "नवमांश" एक विशिष्ट राशि चक्र के नौ भागों में विभाजन को दर्शाता है, जिसमें प्रत्येक विभाजन, जिसे "अम्सा" के रूप में जाना जाता है, 3 डिग्री और 20 मिनट तक फैला होता है।' : 'Among the various divisional charts, the Navmansha Chart holds paramount importance. “Navmansha” denotes the division of a specific zodiac sign into nine parts, with each division, known as an “Amsa,” spanning 3 degrees and 20 minutes.' %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

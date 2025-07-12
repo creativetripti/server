@@ -1,0 +1,20 @@
+<%# views/partials/_sudarshana-chakra.ejs - Displays the Sudarshana Chakra chart %>
+
+<% /* This partial expects 'sudarshanaChakraData' object with an 'image' property */ %>
+
+<div class="w-full text-left">
+  <h1 class="text-center text-2xl top-0 font-semibold mb-5 pb-3 section-title" style="color: #724121;">
+    <%= customer.lang === 'hi' ? 'सुदर्शन चक्र' : 'Sudarshana Chakra' %>
+  </h1>
+
+  <% if (sudarshanaChakraData.data.base64_image) { %>
+  <div class="flex justify-center mb-6">
+    <img src="<%= sudarshanaChakraData.data.base64_image %>" alt="<%= customer.lang === 'hi' ? 'सुदर्शन चक्र चार्ट' : 'Sudarshana Chakra Chart' %>" class="max-w-full h-auto">
+  </div>
+  <% } else { %>
+  <p class="text-center text-red-500 mt-5" style="color: #724121;">
+    <%= customer.lang === 'hi' ? 'सुदर्शन चक्र छवि उपलब्ध नहीं है।' : 'Sudarshana Chakra image not available.' %>
+  </p>
+  <% } %>
+
+</div>

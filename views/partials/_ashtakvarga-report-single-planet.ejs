@@ -1,0 +1,85 @@
+<%# views/partials/_ashtakvarga-report-single-planet.ejs - Merged table for each planet %>
+
+<% /* planetReport: { planetName, subPlanets, chartImage } */ %>
+
+<%
+const planetNamesMap = {
+    "Sun": "सूर्य",
+    "Moon": "चंद्रमा",
+    "Mars": "मंगल",
+    "Mercury": "बुध",
+    "Jupiter": "बृहस्पति",
+    "Venus": "शुक्र",
+    "Saturn": "शनि",
+    "Ascendant": "लग्न"
+};
+
+const subPlanetNamesMap = {
+    "sun": "सूर्य",
+    "moon": "चंद्रमा",
+    "mars": "मंगल",
+    "mercury": "बुध",
+    "jupiter": "बृहस्पति",
+    "venus": "शुक्र",
+    "saturn": "शनि",
+    "ascendant": "लग्न"
+};
+%>
+
+<div class="w-full text-left mb-10">
+  <h1 class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title" style="color: #724121;">
+    <%= customer.lang === 'hi' ? 'अष्टकवर्ग : ' : 'Ashtakvarga : ' %>
+    <%= customer.lang === 'hi' && planetNamesMap[planetReport.planetName] ? planetNamesMap[planetReport.planetName] : planetReport.planetName %>
+  </h1>
+
+  <% const subPlanets = Object.entries(planetReport.subPlanets || {}); %>
+
+  <% if (subPlanets.length > 0) { %>
+    <div class="overflow-x-auto w-full mb-8">
+      <table class="w-full text-sm text-left border border-gray-200 table-fixed">
+        <thead>
+          <tr class="text-white text-xs" style="background-color: #724121;">
+            <th class="px-2 py-2 text-center sticky left-0 z-10" style="width: 100px; background-color: #724121;">
+              <%= customer.lang === 'hi' ? 'उप ग्रह' : 'Sub Planet' %>
+            </th>
+            <% for (let i = 1; i <= 12; i++) { %>
+              <th class="px-2 py-2 text-center" style="width: 35px;"><%= customer.lang === 'hi' ? 'भा' : 'H' %><%= i %></th>
+            <% } %>
+            <th class="px-2 py-2 text-center" style="width: 60px;">
+              <%= customer.lang === 'hi' ? 'अंक' : 'Points' %>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% subPlanets.forEach(([subPlanet, data], index) => { %>
+            <tr class="<%= index % 2 === 0 ? 'bg-white' : 'bg-gray-50' %> text-xs">
+              <td class="px-2 py-2 text-left font-medium sticky left-0 z-0" style="background-color: <%= index % 2 === 0 ? '#ffffff' : '#f9fafb' %>; color: #724121;">
+                <%= customer.lang === 'hi' && subPlanetNamesMap[subPlanet.toLowerCase()] ? subPlanetNamesMap[subPlanet.toLowerCase()] : subPlanet %>
+              </td>
+              <% for (let i = 1; i <= 12; i++) { %>
+                <td class="px-2 py-2 text-center" style="color: #724121;"><%= data[i] %></td>
+              <% } %>
+              <td class="px-2 py-2 text-center font-semibold" style="color: #724121;"><%= data.points %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <p class="text-center mt-5" style="color: #724121;">
+      <%= customer.lang === 'hi' ? 'अष्टकवर्ग डेटा उपलब्ध नहीं है: ' : 'Ashtakvarga data not available for ' %>
+      <%= customer.lang === 'hi' && planetNamesMap[planetReport.planetName] ? planetNamesMap[planetReport.planetName] : planetReport.planetName %>.
+    </p>
+  <% } %>
+
+  <% if (planetReport.chartImage) { %>
+    <div class="flex justify-center mt-6">
+      <img src="<%= planetReport.chartImage %>" alt="<%= customer.lang === 'hi' ? 'अष्टकवर्ग ' + (planetNamesMap[planetReport.planetName] || planetReport.planetName) + ' चार्ट' : 'Ashtakvarga ' + planetReport.planetName + ' Chart' %>" class="max-w-full h-auto rounded-lg shadow-md">
+    </div>
+  <% } else { %>
+    <p class="text-center mt-5" style="color: #724121;">
+      <%= customer.lang === 'hi' ? 'चार्ट छवि उपलब्ध नहीं है: ' : 'Chart image not available for ' %>
+      <%= customer.lang === 'hi' && planetNamesMap[planetReport.planetName] ? planetNamesMap[planetReport.planetName] : planetReport.planetName %>.
+    </p>
+  <% } %>
+</div>

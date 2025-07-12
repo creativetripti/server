@@ -1,0 +1,54 @@
+<%# views/partials/_jaimini-planetary-positions.ejs %>
+
+<div class="jaimini-planetary-positions-container px-9 pt-9 pb-4">
+    <h1 class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'जैमिनी ग्रहीय स्थितियाँ' : 'Jaimini Planetary Positions' %>
+    </h1>
+
+    <div class="mb-8 max-w-[900px] mx-auto text-xs">
+    <div class="overflow-x-auto border rounded-md">
+        <table class="min-w-full table-auto border-collapse">
+            <thead>
+                <tr class="text-white" style="background-color: #724121;">
+                    <th class="py-4 px-2 text-left"><%= customer.lang === 'hi' ? 'ग्रह' : 'Planets' %></th>
+                    <th class="py-4 px-2 text-center"><%= customer.lang === 'hi' ? 'राशि' : 'Sign' %></th>
+                    <th class="py-4 px-2 text-center"><%= customer.lang === 'hi' ? 'अंश' : 'Degrees' %></th>
+                    <th class="py-4 px-2 text-center"><%= customer.lang === 'hi' ? 'नक्षत्र' : 'Nakshatra' %></th>
+                    <th class="py-4 px-2 text-center"><%= customer.lang === 'hi' ? 'भाव' : 'House' %></th>
+                    <th class="py-4 px-2 text-center"><%= customer.lang === 'hi' ? 'कारकांश' : 'Karakamsha' %></th>
+                    <th class="py-4 px-2 text-center"><%= customer.lang === 'hi' ? 'कार्यक्षमता' : 'Functionality' %></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% JaiminiPlanetaryPositions.data.forEach(row => { %>
+                    <tr class="bg-white even:bg-[#f4f4f4]">
+                        <td class="px-2 py-2.5 font-semibold" style="color: #724121;">
+                            <% if (customer.lang === 'hi') { %>
+                                <% if (row.name === 'Sun') { %>सूर्य
+                                <% } else if (row.name === 'Moon') { %>चंद्रमा
+                                <% } else if (row.name === 'Mars') { %>मंगल
+                                <% } else if (row.name === 'Mercury') { %>बुध
+                                <% } else if (row.name === 'Jupiter') { %>बृहस्पति
+                                <% } else if (row.name === 'Venus') { %>शुक्र
+                                <% } else if (row.name === 'Saturn') { %>शनि
+                                <% } else if (row.name === 'Rahu') { %>राहु
+                                <% } else if (row.name === 'Ketu') { %>केतु
+                                <% } else { %><%= row.name %><% } %>
+                            <% } else { %>
+                                <%= row.name %>
+                            <% } %>
+                        </td>
+                        <td class="px-2 py-2.5 text-center" style="color: #724121;"><%= row.sign %></td>
+                        <td class="px-2 py-2.5 text-center" style="color: #724121;"><%= row.full_degree %></td>
+                        <td class="px-2 py-2.5 text-center" style="color: #724121;"><%= row.nakshatra %></td>
+                        <td class="px-2 py-2.5 text-center" style="color: #724121;"><%= row.house %></td>
+                        <td class="px-2 py-2.5 text-center" style="color: #724121;"><%= row.karakamsha %></td>
+                        <td class="px-2 py-2.5 text-center" style="color: #724121;"><%= row.karakamsha_functionality %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</div>

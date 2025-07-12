@@ -1,0 +1,39 @@
+<%# views/partials/_five-fold-friendship-table.ejs %>
+
+<div class="five-fold-friendship-container pb-4 w-full -mx-10">
+    <h1 class="text-center text-2xl text-purple-800 font-semibold mb-5 relative pb-3 section-title">Composite Friendship Table</h1>
+
+    <div class="mb-8">
+        <h2 class="text-center text-lg text-purple-700 font-medium mb-4">Five-fold Friendship</h2>
+        <div class="overflow-x-auto custom-table-container">
+            <table class="custom-table w-full">
+                <thead class="custom-table-header">
+                    <tr>
+                        <th class="bg-[#7c217f] text-white py-2 px-4 text-left">Planets</th>
+                        <th class="bg-[#7c217f] text-white py-2 px-4 text-center">Sun</th>
+                        <th class="bg-[#7c217f] text-white py-2 px-4 text-center">Moon</th>
+                        <th class="bg-[#7c217f] text-white py-2 px-4 text-center">Mars</th>
+                        <th class="bg-[#7c217f] text-white py-2 px-4 text-center">Mercury</th>
+                        <th class="bg-[#7c217f] text-white py-2 px-4 text-center">Jupiter</th>
+                        <th class="bg-[#7c217f] text-white py-2 px-4 text-center">Venus</th>
+                        <th class="bg-[#7c217f] text-white py-2 px-4 text-center">Saturn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% fiveFoldFriendship.forEach(row => { %>
+                        <tr class="bg-white even:bg-[#f4f4f4]">
+                            <td class="px-3 py-2 font-semibold text-purple-800"><%= row.planet %></td>
+                            <td class="px-3 py-2 text-center"><%= row.sun %></td>
+                            <td class="px-3 py-2 text-center"><%= row.moon %></td>
+                            <td class="px-3 py-2 text-center"><%= row.mars %></td>
+                            <td class="px-3 py-2 text-center"><%= row.mercury %></td>
+                            <td class="px-3 py-2 text-center"><%= row.jupiter %></td>
+                            <td class="px-3 py-2 text-center"><%= row.venus %></td>
+                            <td class="px-3 py-2 text-center"><%= row.saturn %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

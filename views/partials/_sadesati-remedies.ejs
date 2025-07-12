@@ -1,0 +1,13 @@
+<%# views/partials/_sadesati-remedies.ejs %>
+
+<div class="space-y-6">
+    <h1 class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'साढ़े साती के उपाय' : 'Remedies Of Sadhesati' %>
+    </h1>
+
+    <ol class="list-decimal list-inside space-y-3 leading-relaxed" style="color: #724121;">
+        <% remediesData.data.remedies.forEach(remedy => { %>
+            <li><%= remedy %></li>
+        <% }); %>
+    </ol>
+</div>

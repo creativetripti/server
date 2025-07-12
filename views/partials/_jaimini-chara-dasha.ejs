@@ -1,0 +1,37 @@
+<%# views/partials/_jaimini-chara-dasha-p1.ejs - Renders a page of Jaimini Chara Dasha cards %>
+
+<div class="flex flex-wrap justify-between gap-x-2 gap-y-2">
+    <% dashas.forEach(mainDasha => { %>
+        <div class="flex-1 min-w-[300px] max-w-[32%] p-0">
+            <div class="pt-1 pb-1 px-4">
+                <h2 class="text-center text-lg font-semibold mb-2" style="color: #724121;">
+                    <%= mainDasha.dasha %>
+                </h2>
+                <div class="text-center text-sm pb-2 mb-2 border-dotted border-y border-[#ccc]" style="color: #724121;">
+                    <%= mainDasha.start_date %> <br>
+                    <%= mainDasha.end_date %>
+                </div>
+            </div>
+
+            <div class="p-0 rounded-md overflow-hidden" style="border: 2px solid #724121;">
+                <table class="w-full text-left text-sm">
+                    <tbody>
+                        <% mainDasha.antar_dasha.forEach((period, index) => { %>
+                            <%
+                                const rowClass = (index % 2 === 0) ? 'bg-white' : 'bg-gray-100';
+                            %>
+                            <tr class="<%= rowClass %>">
+                                <td class="px-4 py-0.5 font-medium" style="color: #724121;"><%= period.dasha %></td>
+                                <td class="px-4 py-0.5 text-right" style="color: #724121;"><%= period.end_date %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <% }); %>
+</div>
+
+<p class="text-left text-sm mt-8" style="color: #724121;">
+    <span class="font-bold">* <%= customer.lang === 'hi' ? 'ध्यान दें' : 'NOTE' %> :</span> <%= customer.lang === 'hi' ? 'सभी तिथियां दशा समाप्ति तिथि दर्शा रही हैं।' : 'All the dates are indicating dasha end date.' %>
+</p>

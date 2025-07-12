@@ -1,0 +1,138 @@
+<%
+// Maps English planet names to Hindi planet names
+const planetMap = {
+  "Sun": "रवि",
+  "Moon": "चंद्रमा",
+  "Mars": "मंगल",
+  "Mercury": "बुध",
+  "Jupiter": "बृहस्पति",
+  "Venus": "शुक्र",
+  "Saturn": "शनि"
+};
+
+// Maps English Shadbala type keys to Hindi display names
+const shadbalaTypeMap = {
+    "sthana_bala": "स्थान बल",
+    "uccha_bala": "उच्च बल",
+    "saptavarghiya_bala": "सप्तवर्गज बल", // Corrected "saptavargaja_bala" to match your data
+    "yugmayugma_bhamsha_bala": "ओजयुग्मराशि बल", // Corrected "ojayugmarasi_bala"
+    "kendradi_bala": "केंद्र बल",
+    "drekkana_bala": "द्रेष्काण बल",
+    "digbala": "दिग् बल", // Corrected "dig_bala" to match your data
+    "kaal_bala": "काल बल", // Corrected "kala_bala"
+    "nattunnata_bala": "नत-उन्नत बल", // Corrected "nata_unnata_bala"
+    "paksha_bala": "पक्ष बल",
+    "tribhaga_bala": "त्रिभाग बल", // Added from your data
+    "varshadhipati": "वर्षाधिपति", // Added from your data
+    "maasadipati": "मासाधिपति", // Added from your data
+    "vaaradhipati": "वाराधिपति", // Added from your data
+    "horadhipati": "होराधिपति", // Added from your data
+    "ayana_bala": "अयन बल", // Corrected "ayanam_bala"
+    "yuddha_bala": "युद्ध बल",
+    "naisargika_bala": "नैसर्गिक बल",
+    "chestha_bala": "चेष्टा बल", // Corrected "cheshta_bala"
+    "drik_bala": "दृक बल",
+    "total": "कुल योग", // This is for nested "total" values
+    "total_shadbala": "कुल षड्बल",
+    "shadbala_in_rupa": "षड्बल रूप में",
+    "min_require": "न्यूनतम आवश्यक",
+    "ratio": "अनुपात",
+    "rank": "श्रेणी"
+};
+
+
+// This array always holds English planet names, which we use as consistent internal keys for rows
+const englishPlanets = Object.keys(planetMap);
+
+// Function to get the display title for a 'Bala Type' key
+const toTitle = key => {
+  if (customer.lang === 'hi' && shadbalaTypeMap[key]) {
+    return shadbalaTypeMap[key];
+  }
+  // Fallback to title-cased English if no specific Hindi mapping
+  return key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+};
+
+const rows = [];
+
+const flattenShadbala = (obj) => {
+  for (const [key, val] of Object.entries(obj)) {
+    if (val && typeof val === 'object' && !Array.isArray(val)) { // Ensure it's an object and not an array
+      // Determine which planet keys to look for based on current language
+      const targetPlanetKeys = customer.lang === 'hi' ? Object.values(planetMap) : englishPlanets;
+
+      // Check if this object contains ALL the planet data for the current language
+      const containsAllPlanetData = targetPlanetKeys.every(pKey => Object.prototype.hasOwnProperty.call(val, pKey));
+
+      if (containsAllPlanetData) {
+        const rowData = { "Bala Type": toTitle(key) };
+        englishPlanets.forEach(englishPlanetName => {
+          // Get the actual key used in the incoming data (English or Hindi)
+          const actualDataKey = customer.lang === 'hi' ? planetMap[englishPlanetName] : englishPlanetName;
+
+          if (val[actualDataKey] !== undefined) {
+            rowData[englishPlanetName] = val[actualDataKey]; // Store data using English planet name as key
+          } else {
+            rowData[englishPlanetName] = '-'; // Placeholder if data is missing for some reason
+          }
+        });
+        rows.push(rowData);
+      } else {
+        // Recursively flatten nested objects (e.g., sthana_bala, kaal_bala)
+        flattenShadbala(val);
+      }
+    }
+  }
+};
+
+// Start flattening from the top-level 'data' object of your API response
+// Assuming 'shadbalaData' contains the full API response, we start from shadbalaData.data
+if (shadbalaData && shadbalaData.data) {
+    flattenShadbala(shadbalaData.data);
+}
+%>
+
+<div style="width: 100%;">
+  <h2 style="text-align: center; font-size: 20px; color: #724121; font-weight: 600; margin-bottom: 12px;">
+    <%= customer.lang === 'hi' ? 'षड्बल तालिका' : 'Shadbala Table' %>
+  </h2>
+
+  <table style="width: 100%; font-size: 12px; table-layout: fixed; ">
+    <thead style="background-color: #724121; color: white;">
+      <tr>
+        <th style="padding: 6px; text-align: left;">
+          <%= customer.lang === 'hi' ? 'बल प्रकार' : 'Bala Type' %>
+        </th>
+        <% englishPlanets.forEach(p => { %>
+          <th style="padding: 6px; text-align: center; white-space: nowrap;">
+            <%# Display the planet name in Hindi if customer.lang is 'hi', otherwise in English %>
+            <%= customer.lang === 'hi' ? planetMap[p] : p %>
+          </th>
+        <% }); %>
+      </tr>
+    </thead>
+    <tbody>
+      <% rows.forEach((row, index) => { %>
+        <tr style="background-color: <%= index % 2 === 0 ? '#ffffff' : '#f9fafb' %>;">
+          <td style="padding: 6px; font-weight: 500; color: #724121;">
+            <%# The "Bala Type" is already translated by toTitle() function %>
+            <%= row["Bala Type"] %>
+          </td>
+          <% englishPlanets.forEach(p => { %>
+            <td style="padding: 6px; text-align: center; color: #724121;">
+              <%# Data values are displayed as is, formatted to 2 decimal places if number %>
+              <%= typeof row[p] === 'number' ? row[p].toFixed(2) : row[p] %>
+            </td>
+          <% }); %>
+        </tr>
+      <% }); %>
+      <% if (rows.length === 0) { %>
+        <tr>
+          <td colspan="<%= englishPlanets.length + 1 %>" style="padding: 10px; text-align: center; color: #724121;">
+            <%= customer.lang === 'hi' ? 'प्रदर्शित करने के लिए कोई षड्बल डेटा उपलब्ध नहीं है।' : 'No Shadbala data to display.' %>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>

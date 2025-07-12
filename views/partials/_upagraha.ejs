@@ -1,0 +1,103 @@
+<%# views/partials/_upagraha.ejs - Displays Upagraha information %>
+
+<% /* This partial expects 'upagrahaData' object */ %>
+
+<div class="w-full text-left">
+    <h1 class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'उपग्रह' : 'Upagraha' %>
+    </h1>
+
+    <p class="leading-relaxed mb-6 text-md" style="color: #724121;">
+        <% if (customer.lang === 'hi') { %>
+            ज्योतिष में, प्रत्येक मुख्य ग्रह के अनुरूप उपग्रहों की गणना की जाती है। चंद्रमा, शुक्र, मंगल, राहु और केतु के उपग्रहों की गणना सूर्य के देशांतर के आधार पर निर्धारित की जाती है।
+        <% } else { %>
+            In astrology, Upagrahas, or sub-planets, are computed to correspond with each main planet. The calculation of sub-planets for the Moon, Venus, Mars, Rahu, and Ketu is determined based on the longitude of the Sun.
+        <% } %>
+    </p>
+
+    <h2 class="text-lg font-semibold mb-3 pb-2" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'धूमदि उपग्रह समूह' : 'Dhumadi Group of Sub-Planets' %>
+    </h2>
+    <p class="leading-relaxed mb-3 text-md" style="color: #724121;">
+        <% if (customer.lang === 'hi') { %>
+            धूमदि उपग्रह समूह में सूर्य, बुध, बृहस्पति, शनि और मंगल के एक अतिरिक्त उपग्रह की गणना शामिल है। यह गणना दिन या रात को आठ बराबर भागों में विभाजित करने पर आधारित है। प्रारंभिक भाग दिन के स्वामी को दिया जाता है, जिसके बाद सप्ताह के शेष स्वामी चक्रीय क्रम में आते हैं। आठवां भाग स्वामीहीन होता है। रात के जन्म के लिए, आठ बराबर भागों में से पहले सात भाग 5वें सप्ताह के दिन से शुरू होने वाले ग्रहों के स्वामियों को दिए जाते हैं।
+        <% } else { %>
+            Dhumadi Group of Sub-Planets involves the computation of sub-planets associated with the Sun, Mercury, Jupiter, Saturn, and an additional sub-planet of Mars. This calculation is rooted in dividing day or night into eight equal parts. The initial part is attributed to the lord of the day, followed by the remaining lords of the week in cyclic order. The eighth part is lordless. For nighttime births, the first seven of the eight equal parts are assigned to the lords of the planets starting from the 5th weekday.
+        <% } %>
+    </p>
+    <p class="leading-relaxed mb-6 text-md" style="color: #724121;">
+        <% if (customer.lang === 'hi') { %>
+            देशांतर निर्धारण के दो प्रचलित तरीके हैं। पहले दृष्टिकोण में, ग्रह द्वारा शासित अवधि की शुरुआत के लिए एक लग्न की गणना की जाती है। दूसरी विधि में, अवधि के अंत को माना जाता है। शनि के उपग्रह गुलिका के लिए, धूमदि समूह के उपग्रहों के देशांतर की गणना करने के लिए एक तीसरी विधि मौजूद है, जो उदय समय के निश्चित मूल्यों पर निर्भर करती है। यह गणना किया गया मान, जिसे एस्ट्रो-विजन होरोस्कोप में MAANDI कहा जाता है, को रासी चार्ट में मुख्य ग्रहों के साथ प्रस्तुत किया जाता है।
+        <% } else { %>
+            There are two prevalent methods for determining the longitude. In the first approach, an ascendant is calculated for the commencement of the period governed by the planet. In the second method, the end of the period is considered. For Gulika, the sub-planet of Saturn, a third method exists to compute the longitude of the Dhumadi group of sub-planets, relying on fixed values of rise time. This calculated value, termed MAANDI in Astro-Vision Horoscope, is presented alongside the principal planets in the Rasi Chart.
+        <% } %>
+    </p>
+
+    <% if (upagrahaData.table && upagrahaData.table.length > 0) { %>
+        <div class="overflow-x-auto w-full mb-8 rounded-md">
+            <table class="w-full text-left text-md rounded-t-md table-auto">
+                <thead>
+                    <tr class="text-white text-md" style="background-color: #724121;">
+                        <th class="px-1 py-3 text-left min-w-[70px]"><%= customer.lang === 'hi' ? 'ग्रह' : 'Planet' %></th>
+                        <th class="px-1 py-3 text-left min-w-[80px]"><%= customer.lang === 'hi' ? 'उपग्रह' : 'Upagraha' %></th>
+                        <th class="px-1 py-3 text-left min-w-[200px]"><%= customer.lang === 'hi' ? 'गणना की विधि' : 'Method of Calculation' %></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% upagrahaData.table.forEach((row, index) => { %>
+                        <%
+                            let rowClass = 'text-md';
+                            if (index % 2 !== 0) {
+                                rowClass += ' bg-gray-50';
+                            }
+                        %>
+                        <tr class="<%= rowClass %>">
+                            <td class="px-1 py-3" style="color: #724121;">
+                                <% if (customer.lang === 'hi') { %>
+                                    <% if (row['Planet'] === 'Mars') { %>मंगल
+                                    <% } else if (row['Planet'] === 'Rahu') { %>राहु
+                                    <% } else if (row['Planet'] === 'Moon') { %>चंद्रमा
+                                    <% } else if (row['Planet'] === 'Venus') { %>शुक्र
+                                    <% } else if (row['Planet'] === 'Ketu') { %>केतु
+                                    <% } else { %>
+                                        <%= row['Planet'] %>
+                                    <% } %>
+                                <% } else { %>
+                                    <%= row['Planet'] %>
+                                <% } %>
+                            </td>
+                            <td class="px-1 py-3" style="color: #724121;">
+                                <% if (customer.lang === 'hi') { %>
+                                    <% if (row['Upagraha'] === 'Dhama') { %>धम
+                                    <% } else if (row['Upagraha'] === 'Vyatipata') { %>व्यतिपात
+                                    <% } else if (row['Upagraha'] === 'Parivesh') { %>परिवेश
+                                    <% } else if (row['Upagraha'] === 'Indrachapa') { %>इंद्रचाप
+                                    <% } else if (row['Upagraha'] === 'Upaketu') { %>उपकेतु
+                                    <% } else { %>
+                                        <%= row['Upagraha'] %>
+                                    <% } %>
+                                <% } else { %>
+                                    <%= row['Upagraha'] %>
+                                <% } %>
+                            </td>
+                            <td class="px-1 py-3 text-wrap" style="color: #724121;">
+                                <% if (customer.lang === 'hi') { %>
+                                    <% if (row['Method of Calculation'] === 'Longitude of Sun + 133 Deg. 20 Min.') { %>सूर्य का देशांतर + 133 डिग्री 20 मिनट
+                                    <% } else if (row['Method of Calculation'] === '360 - Dhuma') { %>360 - धूम
+                                    <% } else if (row['Method of Calculation'] === '180 + Vyatipata') { %>180 + व्यतिपात
+                                    <% } else if (row['Method of Calculation'] === '360 - Parivesh') { %>360 - परिवेश
+                                    <% } else if (row['Method of Calculation'] === 'Indrachapa + 16 Deg. 40 Min') { %>इंद्रचाप + 16 डिग्री 40 मिनट
+                                    <% } else { %>
+                                        <%= row['Method of Calculation'] %>
+                                    <% } %>
+                                <% } else { %>
+                                    <%= row['Method of Calculation'] %>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } %>
+</div>

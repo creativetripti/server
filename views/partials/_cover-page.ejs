@@ -1,0 +1,43 @@
+<div class="page-1-content">
+  <div class="text-center">
+    <% if (customer.lang === 'hi') { %>
+    <img src="http://localhost:<%= port %>/images/pdf-assets/om2.png" alt="Om Symbol (Hindi)" class="w-80 mx-auto block pb-28">
+    <% } else { %>
+    <img src="http://localhost:<%= port %>/images/pdf-assets/om.png" alt="Om Symbol" class="w-80 mx-auto block pb-28">
+    <% } %>
+  </div>
+
+
+
+  <div class="cover-page-footer-bg-section">
+    <div class="w-full h-full bg-no-repeat bg-center bg-cover" style="background-image: url('http://localhost:<%= port %>/images/pdf-assets/bg1.png'); "></div>
+
+    <div class="absolute inset-0 flex justify-center items-center text-center py-8 z-20">
+      <div class="mx-auto text-center">
+        <h2 class="text-xl font-semibold m-0 text-[#724121]">
+          <%= customer.name %>
+        </h2>
+        <p class="mt-2 m-0 text-[#724121]">
+          <% if (customer.lang === 'hi') { %>
+          जन्म तिथि: <%= customer.dob %>
+          जन्म समय: <%= customer.tob %>
+          <% } else { %>
+          <%= customer.dob %>
+          <%= customer.tob %>
+          <% } %>
+        </p>
+        <p class="m-0 text-[#724121]">
+          <% if (customer.lang === 'hi') { %>
+          जन्म स्थान: <%= customer.pob %>
+          <% } else { %>
+          <%= customer.pob %>
+          <% } %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+   <div class="flex justify-center z-60 mt-96">
+  </div>
+
+</div>

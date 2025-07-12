@@ -1,0 +1,33 @@
+<%
+// This partial relies ONLY on the 'planets' array passed to it.
+// All styling is applied via Tailwind CSS classes directly on the elements.
+%>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+  <% if (planets && planets.length > 0) { %>
+    <% planets.forEach((planet) => { %>
+      <div class="card border border-gray-300 rounded-lg p-4 flex gap-3 items-start shadow-md">
+        <img src="<%= planet.image %>" alt="<%= planet.name %>" class="w-12 h-12 object-cover rounded-full" />
+        <div>
+          <h2 class="text-lg text-[#724121] my-0 mb-1">
+            <%= customer.lang === 'hi' ? (planet.name_hi || planet.name) : (planet.name || '--') %>
+          </h2>
+          <p class="font-medium text-sm text-[#724121]">
+            <%= customer.lang === 'hi' ? 'राशि स्वामी' : 'Sign Lord' %>: <%= planet.rashi_lord || "--" %>
+          </p>
+          <p class="text-sm text-[#724121]">
+            <%= customer.lang === 'hi' ? 'नक्षत्र' : 'Nakshatra' %>: <%= planet.nakshatra || "--" %>
+          </p>
+          <hr class="my-2 border-t border-gray-300" /> <%# Added Tailwind border for hr %>
+          <% if (planet.type) { %>
+            <p class="text-red-600 font-semibold"><%= planet.type %></p>
+          <% } else { %>
+            <p class="text-gray-600 font-semibold">--</p>
+          <% } %>
+        </div>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <p class="text-center text-gray-500"><%= customer.lang === 'hi' ? 'कोई ग्रह संबंधी डेटा नहीं मिला।' : 'No planetary data found.' %></p>
+  <% } %>
+</div>

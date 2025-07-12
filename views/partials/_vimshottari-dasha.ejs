@@ -1,0 +1,49 @@
+<%# views/partials/_vimshottari-dasha.ejs - Fixed version matching API format %>
+
+<h1 class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title" style="color: #724121;">
+    <%= customer.lang === 'hi' ? 'विंशोत्तरी दशा' : 'Vimshottari Dasha' %>
+</h1>
+
+<div class="flex flex-wrap justify-between gap-x-4 gap-y-8">
+    <% dashas.forEach(([planetName, mahaDasha]) => { %>
+        <div class="flex-1 min-w-[300px] max-w-[24%] p-0">
+            <div class="pt-4 pb-2 px-4">
+                <h2 class="text-center text-lg font-semibold mb-2" style="color: #724121;">
+                    <%= planetName %>
+                </h2>
+                <div class="text-center text-sm pb-2 mb-2 border-dotted border-y border-[#ccc]" style="color: #724121;">
+                    <%= mahaDasha.start_date || '--' %> <br>
+                    <%= mahaDasha.end_date || '--' %>
+                </div>
+            </div>
+
+            <div class="p-0 rounded-md overflow-hidden" style="border: 2px solid #724121;">
+                <table class="w-full text-left text-sm">
+                    <tbody>
+                        <% if (mahaDasha.antar_dasha && Object.keys(mahaDasha.antar_dasha).length > 0) { %>
+                            <% Object.entries(mahaDasha.antar_dasha).forEach(([antarName, antarData], index) => { %>
+                                <%
+                                    const rowClass = (index % 2 === 0) ? 'bg-white' : 'bg-gray-100';
+                                %>
+                                <tr class="<%= rowClass %>">
+                                    <td class="px-4 py-1 font-medium" style="color: #724121;"><%= antarName %></td>
+                                    <td class="px-4 py-1 text-right" style="color: #724121;"><%= antarData.end_time || '--' %></td>
+                                </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="2" class="px-4 py-2 text-center" style="color: #724121;">
+                                    <%= customer.lang === 'hi' ? 'कोई अंतर्दशा डेटा उपलब्ध नहीं है' : 'No Antar Dasha data available' %>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <% }); %>
+</div>
+
+<p class="text-left text-sm mt-8" style="color: #724121;">
+    <span class="font-bold">* <%= customer.lang === 'hi' ? 'ध्यान दें' : 'NOTE' %> :</span> <%= customer.lang === 'hi' ? 'सभी तिथियां दशा समाप्ति तिथि दर्शा रही हैं।' : 'All the dates are indicating dasha end date.' %>
+</p>

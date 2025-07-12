@@ -1,0 +1,54 @@
+<%# views/partials/_kp-house-cusps.ejs %>
+
+<div class="kp-house-cusps-container px-9 pt-9 pb-4">
+  <h1
+    class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title"
+    style="color: #724121;"
+  >
+    <%= customer.lang === 'hi' ? 'केपी भाव संधि और चार्ट' : 'KP House Cusps and Chart' %>
+  </h1>
+
+  <div class="mb-8 max-w-[900px] mx-auto text-xs">
+    <div class="overflow-x-auto border rounded-md">
+      <table class="min-w-full table-auto border-collapse">
+        <thead>
+          <tr class="text-white" style="background-color: #724121;">
+            <th class="py-2 px-2 text-left"><%= customer.lang === 'hi' ? 'भाव' : 'House' %></th>
+            <th class="py-2 px-2 text-center"><%= customer.lang === 'hi' ? 'राशि' : 'Sign' %></th>
+            <th class="py-2 px-2 text-center"><%= customer.lang === 'hi' ? 'अंश' : 'Degrees' %></th>
+            <th class="py-2 px-2 text-center"><%= customer.lang === 'hi' ? 'राशि स्वामी' : 'Sign Lord' %></th>
+            <th class="py-2 px-2 text-center"><%= customer.lang === 'hi' ? 'नक्षत्र' : 'Nakshatra' %></th>
+            <th class="py-2 px-2 text-center"><%= customer.lang === 'hi' ? 'नक्षत्र स्वामी' : 'Nakshatra Lord' %></th>
+            <th class="py-2 px-2 text-center"><%= customer.lang === 'hi' ? 'उप स्वामी' : 'Sub Lord' %></th>
+            <th class="py-2 px-2 text-center"><%= customer.lang === 'hi' ? 'उप-उप स्वामी' : 'S-S Lord' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% Object.values(KP_HouseCusps.data.table_data).forEach(row => { %>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-2 py-1 font-semibold" style="color: #724121;">
+              <%= row.cusp %>
+            </td>
+            <td class="px-2 py-1 text-center" style="color: #724121;"><%= row.house_cusp.sign %></td>
+            <td class="px-2 py-1 text-center" style="color: #724121;"><%= row.house_cusp.degree %></td>
+            <td class="px-2 py-1 text-center" style="color: #724121;"><%= row.rashi_lord %></td>
+            <td class="px-2 py-1 text-center" style="color: #724121;"><%= row.nakshatra %></td>
+            <td class="px-2 py-1 text-center" style="color: #724121;"><%= row.nakshatra_lord %></td>
+            <td class="px-2 py-1 text-center" style="color: #724121;"><%= row.sub_lord %></td>
+            <td class="px-2 py-1 text-center" style="color: #724121;"><%= row.sub_sub_lord %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="flex justify-center my-4 max-w-[900px] mx-auto">
+    <img
+      src="<%= KP_HouseCusps.data.base64_image %>"
+      alt="<%= customer.lang === 'hi' ? 'केपी चार्ट' : 'KP Chart' %>"
+      class="max-w-full h-auto"
+      style="max-height: 400px"
+    />
+  </div>
+</div>

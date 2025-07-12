@@ -1,0 +1,77 @@
+<%# views/partials/_yogini-dasha.ejs - Consolidated partial for a full page of Yogini Dasha cards and note %>
+
+<% /* This partial expects an array of 'yoginiDashasSlice' for the current page */ %>
+
+<h1 class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title" style="color: #724121;">
+    <%= customer.lang === 'hi' ? 'योगिनी दशा' : 'Yogini Dasha' %>
+</h1>
+
+<div class="flex flex-wrap justify-between gap-x-4 gap-y-8">
+    <% yoginiDashasSlice.forEach(mainDasha => { %>
+        <% /* Outer container for a single card - NO BORDER OR SHADOW here */ %>
+        <div class="flex-1 min-w-[300px] max-w-[24%] p-0"> <%# No border or shadow on this div %>
+            <div class="pt-4 pb-2 px-4"> <%# Padding for content inside %>
+                <h2 class="text-center text-lg font-semibold mb-2" style="color: #724121;">
+                    <% if (customer.lang === 'hi') { %>
+                        <% if (mainDasha.dasha === 'Mangala') { %>मंगला
+                        <% } else if (mainDasha.dasha === 'Pingala') { %>पिंगला
+                        <% } else if (mainDasha.dasha === 'Dhanya') { %>धान्या
+                        <% } else if (mainDasha.dasha === 'Bhramari') { %>भ्रामरी
+                        <% } else if (mainDasha.dasha === 'Bhadrika') { %>भद्रिका
+                        <% } else if (mainDasha.dasha === 'Ulka') { %>उल्का
+                        <% } else if (mainDasha.dasha === 'Siddha') { %>सिद्धा
+                        <% } else if (mainDasha.dasha === 'Sankata') { %>संकटा
+                        <% } else { %>
+                            <%= mainDasha.dasha %>
+                        <% } %>
+                    <% } else { %>
+                        <%= mainDasha.dasha %>
+                    <% } %>
+                </h2>
+                <div class="text-center text-sm pb-2 mb-2 border-dotted border-y border-[#ccc]" style="color: #724121;"
+                    > <%# Dotted border and spacing below dates %>
+                    <%= mainDasha.start_date %> <br>
+                    <%= mainDasha.end_date %>
+                </div>
+            </div>
+
+            <% /* Inner table with its own border and row highlighting */ %>
+            <div class="p-0 rounded-md overflow-hidden" style="border: 2px solid #724121;">
+                <table class="w-full text-left text-sm">
+                    <tbody>
+                        <% Object.entries(mainDasha.antar_dasha).forEach(([planet, endDate], index) => { %>
+                            <%
+                                const rowClass = (index % 2 === 0) ? 'bg-white' : 'bg-gray-100';
+                            %>
+                            <tr class="<%= rowClass %>">
+                                <td class="px-4 py-1 font-medium" style="color: #724121;">
+                                    <% if (customer.lang === 'hi') { %>
+                                        <% if (planet === 'Mangala') { %>मंगला
+                                        <% } else if (planet === 'Pingala') { %>पिंगला
+                                        <% } else if (planet === 'Dhanya') { %>धान्या
+                                        <% } else if (planet === 'Bhramari') { %>भ्रामरी
+                                        <% } else if (planet === 'Bhadrika') { %>भद्रिका
+                                        <% } else if (planet === 'Ulka') { %>उल्का
+                                        <% } else if (planet === 'Siddha') { %>सिद्धा
+                                        <% } else if (planet === 'Sankata') { %>संकटा
+                                        <% } else { %>
+                                            <%= planet %>
+                                        <% } %>
+                                    <% } else { %>
+                                        <%= planet %>
+                                    <% } %>
+                                </td>
+                                <td class="px-4 py-1 text-right" style="color: #724121;"><%= endDate %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <% }); %>
+</div>
+
+<% /* The note appears once per page that contains dasha cards */ %>
+<p class="text-left text-sm mt-8" style="color: #724121;">
+    <span class="font-bold">* <%= customer.lang === 'hi' ? 'ध्यान दें' : 'NOTE' %> :</span> <%= customer.lang === 'hi' ? 'सभी तिथियां दशा समाप्ति तिथि दर्शा रही हैं।' : 'All the dates are indicating dasha end date.' %>
+</p>

@@ -1,0 +1,57 @@
+<%
+// Define localization map for planet names, if they need translation in the table header
+// The `planets` array itself would be in English for keys, but the display can be localized.
+const localizedPlanetNames = {
+  "Sun": customer.lang === 'hi' ? "सूर्य" : "Sun",
+  "Moon": customer.lang === 'hi' ? "चंद्रमा" : "Moon",
+  "Mars": customer.lang === 'hi' ? "मंगल" : "Mars",
+  "Mercury": customer.lang === 'hi' ? "बुध" : "Mercury",
+  "Jupiter": customer.lang === 'hi' ? "बृहस्पति" : "Jupiter",
+  "Venus": customer.lang === 'hi' ? "शुक्र" : "Venus",
+  "Saturn": customer.lang === 'hi' ? "शनि" : "Saturn",
+  // You can add more planets here if your data includes them
+};
+
+const tableSections = [
+  { title: customer.lang === 'hi' ? 'स्थायी मित्रता' : 'Permanent Friendship', data: friendship.data.natural_friendship },
+  { title: customer.lang === 'hi' ? 'अस्थायी मित्रता' : 'Temporal Friendship', data: friendship.data.temporary_friendship },
+  { title: customer.lang === 'hi' ? 'पंचधा मित्रता' : 'Five-fold Friendship', data: friendship.data.five_fold_friendship }
+];
+
+// This array holds the English keys for iteration, then we use localizedPlanetNames for display
+const planets = ["Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn"];
+%>
+
+<% tableSections.forEach(section => { %>
+  <div class="mb-6">
+    <h2 class="text-center text-lg font-bold text-[#724121] mb-3">
+      <%= section.title %>
+    </h2>
+    <div class="overflow-x-auto border rounded-md">
+      <table class="min-w-full text-xs border-collapse">
+        <thead class="bg-[#724121] text-white">
+          <tr>
+            <th class="p-1 text-left">
+              <%= customer.lang === 'hi' ? 'ग्रह' : 'Planets' %> <%# Localized "Planets" heading %>
+            </th>
+            <% planets.forEach(p => { %>
+              <th class="p-1 text-center"><%= localizedPlanetNames[p] %></th> <%# Localized column headers %>
+            <% }); %>
+          </tr>
+        </thead>
+        <tbody>
+          <% Object.entries(section.data).forEach(([planetName, row]) => { %>
+            <tr class="bg-white even:bg-[#f4f4f4]">
+              <td class="p-1 font-semibold text-[#724121] text-left">
+                <%= localizedPlanetNames[planetName] || planetName %> <%# Localized row header (planet name) %>
+              </td>
+              <% planets.forEach(p => { %>
+                <td class="p-1 text-center"><%= row[p] || "-" %></td>
+              <% }); %>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% }); %>

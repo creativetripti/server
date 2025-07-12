@@ -1,0 +1,82 @@
+<%# views/partials/_jaimini-padas.ejs %>
+
+<div class="jaimini-padas-container px-9 pt-9 pb-4">
+  <h1
+    class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title"
+    style="color: #724121;"
+  >
+    <%= customer.lang === 'hi' ? 'जैमिनी पद' : 'Jaimini Padas' %>
+  </h1>
+
+  <div class="mb-8 max-w-[900px] mx-auto text-xs">
+    <div class="overflow-x-auto border rounded-md">
+      <table class="min-w-full table-auto border-collapse">
+        <thead>
+          <tr class="text-white" style="background-color: #724121;">
+            <th class="py-2.5 px-2 text-left"><%= customer.lang === 'hi' ? 'कोड' : 'Code' %></th>
+            <th class="py-2.5 px-2 text-center"><%= customer.lang === 'hi' ? 'पद' : 'Pada' %></th>
+            <th class="py-2.5 px-2 text-center"><%= customer.lang === 'hi' ? 'राशि' : 'Sign' %></th>
+            <th class="py-2.5 px-2 text-center"><%= customer.lang === 'hi' ? 'भाव' : 'House' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% JaiminiPadas[0].data.padas_table.forEach(row => { %>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-2 py-1.5 font-semibold" style="color: #724121;">
+              <%= row.code %>
+            </td>
+            <td class="px-2 py-1.5 text-center" style="color: #724121;">
+              <% if (customer.lang === 'hi') { %>
+                <% if (row.pada === 'Atma Pada') { %>आत्म पद
+                <% } else if (row.pada === 'Dhanna Pada') { %>धन पद
+                <% } else if (row.pada === 'Bhratru Pada') { %>भ्रातृ पद
+                <% } else if (row.pada === 'Matru Pada') { %>मातृ पद
+                <% } else if (row.pada === 'Putra Pada') { %>पुत्र पद
+                <% } else if (row.pada === 'Roga Pada') { %>रोग पद
+                <% } else if (row.pada === 'Dara Pada') { %>दारा पद
+                <% } else if (row.pada === 'Jeevan Pada') { %>जीवन पद
+                <% } else if (row.pada === 'Bhagya Pada') { %>भाग्य पद
+                <% } else if (row.pada === 'Rajya Pada') { %>राज्य पद
+                <% } else if (row.pada === 'Labha Pada') { %>लाभ पद
+                <% } else if (row.pada === 'Vyaya Pada') { %>व्यय पद
+                <% } else { %>
+                  <%= row.pada %>
+                <% } %>
+              <% } else { %>
+                <%= row.pada %>
+              <% } %>
+            </td>
+            <td class="px-2 py-1.5 text-center" style="color: #724121;"><%= row.sign %></td>
+            <td class="px-2 py-1.5 text-center" style="color: #724121;"><%= row.house %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap justify-center gap-4 mt-8 max-w-[900px] mx-auto">
+    <div class="flex flex-col items-center flex-1 min-w-[250px] max-w-[48%]">
+      <img
+        src="<%= JaiminiPadas[0].data?.chart?.base64_image %>"
+        alt="<%= customer.lang === 'hi' ? 'जैमिनी पद चार्ट 1' : 'Jaimini Padas Chart 1' %>"
+        class="max-w-full h-auto rounded-md border"
+        style="max-height: 250px"
+      />
+      <p class="text-center text-sm mt-2" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'जैमिनी पद चार्ट' : 'Jaimini Padas Chart' %>
+      </p>
+    </div>
+    <div class="flex flex-col items-center flex-1 min-w-[250px] max-w-[48%]">
+      <img
+        src="<%= JaiminiPadas[1].data?.base64_image %>"
+        alt="<%= customer.lang === 'hi' ? 'जैमिनी कारकांश लग्न चार्ट' : 'Jaimini Karakamsha Lagna Chart' %>"
+        class="max-w-full h-auto rounded-md border"
+        style="max-height: 250px"
+      />
+      <p class="text-center text-sm mt-2" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'जैमिनी कारकांश लग्न' : 'Jaimini Karakamsha Lagna' %>
+      </p>
+    </div>
+  </div>
+</div>

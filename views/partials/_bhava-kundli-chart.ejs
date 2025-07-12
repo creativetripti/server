@@ -1,0 +1,15 @@
+<%# views/partials/_bhava-kundli-p1.ejs %>
+<h1 class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title" style="color: #724121;">
+  <%= customer.lang === 'hi' ? 'भाव कुंडली चार्ट' : 'Bhava Kundli Charts' %>
+</h1>
+<div class="flex flex-wrap justify-between gap-x-4 gap-y-8">
+    <% charts.forEach(chart => { %>
+        <%# Adjusted max-w to ensure 3 charts per row %>
+        <div class="flex-1 min-w-[200px] max-w-[220px] divisional-chart-card text-center">
+            <h3 class="text-md font-semibold mb-2" style="color: #724121;">
+              <%= chart.chartId %>
+            </h3>
+            <img src="<%= chart.data?.data?.base64_image %>" alt="<%= chart.chartId %>" class="w-full h-auto mx-auto border border-gray-300 rounded" />
+        </div>
+    <% }); %>
+</div>

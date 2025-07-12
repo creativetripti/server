@@ -1,0 +1,119 @@
+<%# views/partials/_upagraha-nakshatra-sub-lord.ejs - Displays Upagraha/Nakshatra/Sub Lord table and chart %>
+
+<% /* This partial expects 'upagrahaNakshatraSubLordData' object */ %>
+
+<%
+const upagrahaNamesMap = {
+    "Dhuma": "धूम",
+    "Vyatipata": "व्यतिपात",
+    "Parivesh": "परिवेश",
+    "Indrachapa": "इंद्रचाप",
+    "Upaketu": "उपकेतु",
+    "Gulika": "गुलिका",
+    "Kala": "काल",
+    "Mrityu": "मृत्यु",
+    "Ardhaprahara": "अर्धप्रहर",
+    "Yamakantaka": "यमकांतक"
+};
+
+const nakshatraNamesMap = {
+    "Ashwini": "अश्विनी",
+    "Bharani": "भरणी",
+    "Krittika": "कृतिका",
+    "Rohini": "रोहिणी",
+    "Mrigashira": "मृगशिरा",
+    "Ardra": "आर्द्रा",
+    "Punarvasu": "पुनर्वसु",
+    "Pushya": "पुष्य",
+    "Ashlesha": "आश्लेषा",
+    "Magha": "मघा",
+    "Purva Phalguni": "पूर्व फाल्गुनी",
+    "Uttara Phalguni": "उत्तर फाल्गुनी",
+    "Hasta": "हस्त",
+    "Chitra": "चित्रा",
+    "Swati": "स्वाति",
+    "Vishakha": "विशाखा",
+    "Anuradha": "अनुराधा",
+    "Jyeshtha": "ज्येष्ठा",
+    "Moola": "मूल",
+    "Purva Ashadha": "पूर्वाषाढ़ा",
+    "Uttara Ashadha": "उत्तराषाढ़ा",
+    "Shravana": "श्रवण",
+    "Dhanishta": "धनिष्ठा",
+    "Shatabhisha": "शतभिषा",
+    "Purva Bhadrapada": "पूर्व भाद्रपद",
+    "Uttara Bhadrapada": "उत्तर भाद्रपद",
+    "Revati": "रेवती"
+};
+
+const planetLordNamesMap = {
+    "Sun": "सूर्य",
+    "Moon": "चंद्रमा",
+    "Mars": "मंगल",
+    "Mercury": "बुध",
+    "Jupiter": "बृहस्पति",
+    "Venus": "शुक्र",
+    "Saturn": "शनि",
+    "Rahu": "राहु",
+    "Ketu": "केतु"
+};
+%>
+
+<div class="w-full text-left">
+    <h1 class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'उपग्रह/नक्षत्र/उप स्वामी' : 'Upagraha/Nakshatra/Sub Lord' %>
+    </h1>
+
+    <% if (upagrahaNakshatraSubLordData.data.planets && upagrahaNakshatraSubLordData.data.planets.length > 0) { %>
+        <div class="overflow-x-auto w-full mb-8 rounded-md">
+            <table class="w-full text-left text-md rounded-md table-auto">
+                <thead>
+                    <tr class="text-white text-md" style="background-color: #724121;">
+                        <th class="px-1 py-3 text-left min-w-[70px]"><%= customer.lang === 'hi' ? 'उपग्रह' : 'Upagraha' %></th>
+                        <th class="px-1 py-3 text-left min-w-[80px]"><%= customer.lang === 'hi' ? 'नक्षत्र' : 'Nakshatra' %></th>
+                        <th class="px-1 py-3 text-left min-w-[100px]"><%= customer.lang === 'hi' ? 'नक्षत्र स्वामी' : 'Nakshatra Lord' %></th>
+                        <th class="px-1 py-3 text-left min-w-[70px]"><%= customer.lang === 'hi' ? 'उप स्वामी' : 'Sub Lord' %></th>
+                        <th class="px-1 py-3 text-left min-w-[90px]"><%= customer.lang === 'hi' ? 'उप-उप स्वामी' : 'Sub Sub Lord' %></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% upagrahaNakshatraSubLordData.data.planets.forEach((row, index) => { %>
+                        <%
+                            let rowClass = 'text-md';
+                            if (index % 2 !== 0) {
+                                rowClass += ' bg-gray-50';
+                            }
+                        %>
+                        <tr class="<%= rowClass %>">
+                            <td class="px-1 py-3" style="color: #724121;">
+                                <%= customer.lang === 'hi' && upagrahaNamesMap[row.name] ? upagrahaNamesMap[row.name] : row.name %>
+                            </td>
+                            <td class="px-1 py-3" style="color: #724121;">
+                                <%= customer.lang === 'hi' && nakshatraNamesMap[row.nakshatra] ? nakshatraNamesMap[row.nakshatra] : row.nakshatra %>
+                            </td>
+                            <td class="px-1 py-3" style="color: #724121;">
+                                <%= customer.lang === 'hi' && planetLordNamesMap[row.nakshatra_lord] ? planetLordNamesMap[row.nakshatra_lord] : row.nakshatra_lord %>
+                            </td>
+                            <td class="px-1 py-3" style="color: #724121;">
+                                <%= customer.lang === 'hi' && planetLordNamesMap[row.sub_lord] ? planetLordNamesMap[row.sub_lord] : row.sub_lord %>
+                            </td>
+                            <td class="px-1 py-3" style="color: #724121;">
+                                <%= customer.lang === 'hi' && planetLordNamesMap[row.sub_sub_lord] ? planetLordNamesMap[row.sub_sub_lord] : row.sub_sub_lord %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+        <p class="text-center" style="color: #724121;">
+            <%= customer.lang === 'hi' ? 'कोई उपग्रह/नक्षत्र/उप स्वामी डेटा उपलब्ध नहीं है।' : 'No Upagraha/Nakshatra/Sub Lord data available.' %>
+        </p>
+    <% } %>
+
+    <% if (upagrahaNakshatraSubLordData.chartImage) { %>
+        <div class="flex justify-center mb-6 w-[200px]">
+            <img src="<%= upagrahaNakshatraSubLordData.chartImage %>" alt="<%= customer.lang === 'hi' ? 'उपग्रह चार्ट' : 'Upagraha Chart' %>" class="max-w-[200px] h-auto rounded-lg shadow-md">
+        </div>
+    <% } %>
+</div>

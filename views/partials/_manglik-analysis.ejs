@@ -1,0 +1,37 @@
+<% const isManglik = manglikData.data.manglik_dosha.toLowerCase().includes('yes'); %>
+
+<div class="w-full text-left">
+  <h1 class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title" style="color: #724121;">
+    <%= customer.lang === 'hi' ? 'मांगलिक दोष' : 'Manglik Dosha' %>
+  </h1>
+
+  <div class="overflow-x-auto w-full mb-6">
+    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+      <tbody>
+        <tr class="border-b border-gray-200">
+          <td class="px-4 py-2 font-medium w-1/2" style="color: #724121;"><%= customer.lang === 'hi' ? 'मांगलिक उपस्थित?' : 'Manglik Present?' %></td>
+          <td class="px-4 py-2 text-right w-1/2" style="color: #724121;">
+            <%= customer.lang === 'hi' ? (manglikData.data.manglik_dosha.toLowerCase().includes('yes') ? 'हाँ' : 'नहीं') : manglikData.data.manglik_dosha %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <% if (isManglik) { %>
+    <div class="mb-6">
+      <h2 class="text-lg font-semibold mb-2 border-b border-purple-300 pb-1" style="color: #724121;"><%= customer.lang === 'hi' ? 'शक्ति' : 'Strength' %></h2>
+      <p class="mb-4 text-sm" style="color: #724121;"><%= customer.lang === 'hi' ? manglikData.data.strength_hi : manglikData.data.strength %> (<%= manglikData.data.percentage %>%)</p>
+
+      <h2 class="text-lg font-semibold mb-2 border-b border-purple-300 pb-1" style="color: #724121;"><%= customer.lang === 'hi' ? 'उपाय' : 'Remedies' %></h2>
+      <% manglikData.data.remedies.forEach(remedy => { %>
+        <p class="mb-2 text-sm" style="color: #724121;">• <%= customer.lang === 'hi' ? remedy : remedy %></p>
+      <% }); %>
+
+      <h2 class="text-lg font-semibold mb-2 border-b border-purple-300 pb-1" style="color: #724121;"><%= customer.lang === 'hi' ? 'टिप्पणियाँ' : 'Comments' %></h2>
+      <% manglikData.data.comment.forEach(line => { %>
+        <p class="mb-2 text-sm" style="color: #724121;"><%= customer.lang === 'hi' ? line : line %></p>
+      <% }); %>
+    </div>
+  <% } %>
+</div>

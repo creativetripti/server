@@ -1,0 +1,63 @@
+<%# views/partials/_sadhesati-life-analysis-table.ejs - Displays a slice of Sadhesati Life Analysis data %>
+
+<% /* This partial expects 'analysisSlice' (an array of rows for the current page) */ %>
+
+<div class="overflow-x-auto w-full">
+    <table class="w-full text-left text-md table-auto shadow-sm">
+        <thead>
+            <tr class="text-white text-xs rounded-t-md" style="background-color: #724121;">
+                <th class="px-1 py-2 text-center min-w-[80px]"><%= customer.lang === 'hi' ? 'राशि चिन्ह' : 'Sign symbol' %></th>
+                <th class="px-1 py-2 text-center min-w-[80px]"><%= customer.lang === 'hi' ? 'राशि नाम' : 'Sign Name' %></th>
+                <th class="px-1 py-2 text-center min-w-[70px]"><%= customer.lang === 'hi' ? 'वक्री?' : 'Is Retro?' %></th>
+                <th class="px-1 py-2 text-center min-w-[90px]"><%= customer.lang === 'hi' ? 'चरण' : 'Phase' %></th>
+                <th class="px-1 py-2 text-center min-w-[80px]"><%= customer.lang === 'hi' ? 'दिनांक' : 'Date' %></th>
+                <th class="px-1 py-2 text-center min-w-[200px]"><%= customer.lang === 'hi' ? 'सारांश' : 'Summary' %></th> <%# Increased width for summary %>
+            </tr>
+        </thead>
+        <tbody>
+            <% analysisSlice.forEach((row, index) => { %>
+                <%
+                    let rowClass = 'text-xs';
+                    // Apply stripe background to every other row
+                    if (index % 2 !== 0) {
+                        rowClass += ' bg-gray-50'; // Light gray stripe
+                    }
+                %>
+                <tr class="<%= rowClass %>">
+                    <td class="px-1 py-2 whitespace-nowrap" style="color: #724121;"><%= row['sign_symbol'] %></td>
+                    <td class="px-1 py-2 whitespace-nowrap" style="color: #724121;"><%= customer.lang === 'hi' ? row['sign_name_hi'] : row['sign_name'] %></td>
+                    <td class="px-1 py-2 text-center" style="color: #724121;">
+                      <% if (customer.lang === 'hi') { %>
+                        <%= row['is_retro'] ? 'हाँ' : 'नहीं' %>
+                      <% } else { %>
+                        <%= row['is_retro'] %>
+                      <% } %>
+                    </td>
+                    <td class="px-1 py-2 whitespace-nowrap" style="color: #724121;">
+                      <% if (customer.lang === 'hi') { %>
+                        <% if (row['phase'] === 'First Phase') { %>पहला चरण
+                        <% } else if (row['phase'] === 'Second Phase') { %>दूसरा चरण
+                        <% } else if (row['phase'] === 'Third Phase') { %>तीसरा चरण
+                        <% } else { %>
+                          <%= row['phase'] %>
+                        <% } %>
+                      <% } else { %>
+                        <%= row['phase'] %>
+                      <% } %>
+                    </td>
+                    <td class="px-1 py-2 whitespace-nowrap" style="color: #724121;"><%= row['date'] %></td>
+                    <td class="px-1 py-2 text-wrap" style="color: #724121;"><%= customer.lang === 'hi' ? 'कोई डेटा नहीं' : 'no data' %></td> <%# text-wrap to allow summary to break lines %>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .table-auto thead th {
+        vertical-align: middle;
+    }
+    .table-auto tbody tr td {
+        vertical-align: top; /* Align summary text to top if it wraps */
+    }
+</style>

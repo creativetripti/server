@@ -1,0 +1,30 @@
+<%# views/partials/_single-sarvashtakvarga-chart.ejs - Renders a single Sarvashtakvarga chart with its label %>
+
+<% /* This partial expects 'chart' object: { chartId, data } */ %>
+
+<%
+const chartIdMap = {
+    "Sarvashtak Varga": "सर्वाष्टक वर्ग"
+};
+
+const translateChartId = (id, lang) => {
+    if (lang === 'hi' && chartIdMap[id]) {
+        return chartIdMap[id];
+    }
+    return id;
+};
+%>
+
+<div class="flex-1 min-w-[200px] max-w-[220px] divisional-chart-card text-center">
+    <h3 class="text-md font-semibold mb-2 whitespace-nowrap" style="color: #724121;">
+        <%= translateChartId(chart.chartId, customer.lang) %>
+    </h3>
+    <% if (chart.data?.data?.chart.base64_image) { %>
+        <img src="<%= chart.data.data.chart.base64_image %>" alt="<%= translateChartId(chart.chartId, customer.lang) %> Chart" class="w-full h-auto mx-auto border border-gray-300 rounded">
+    <% } else { %>
+        <p class="text-center text-sm" style="color: #724121;">
+            <%= customer.lang === 'hi' ? 'चार्ट छवि उपलब्ध नहीं है: ' : 'Chart image not available for ' %>
+            <%= translateChartId(chart.chartId, customer.lang) %>.
+        </p>
+    <% } %>
+</div>

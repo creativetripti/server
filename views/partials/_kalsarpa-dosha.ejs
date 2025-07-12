@@ -1,0 +1,36 @@
+<%# views/partials/_kalsarpa-dosha.ejs - Displays Kalsarpa Dosha information %>
+<% /* This partial expects 'kalsarpaData' object */ %>
+
+<div class="w-full text-left">
+  <h1 class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title" style="color: #724121;">
+    <%= customer.lang === 'hi' ? 'कालसर्प दोष' : 'Kalsarpa Dosha' %>
+  </h1>
+
+  <div class="overflow-x-auto w-full mb-8">
+    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+      <tbody>
+        <tr class="border-b border-gray-200">
+          <td class="px-4 py-2 font-medium w-1/2" style="color: #724121;"><%= customer.lang === 'hi' ? 'क्या कालसर्प मौजूद है?' : 'Is Kalsarpa present?' %></td>
+          <td class="px-4 py-2 text-right w-1/2" style="color: #724121;">
+            <%= customer.lang === 'hi' ? (kalsarpaData.data.result === "true" ? 'हाँ' : 'नहीं') : kalsarpaData.data.result %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <% if (kalsarpaData.data.result === "true") { %>
+    <h2 class="text-lg font-semibold mb-3 border-b border-purple-300 pb-2" style="color: #724121;">
+      <%= customer.lang === 'hi' ? 'कालसर्प दोष के उपाय' : 'Remedies of Kalsarpa Dosha' %>
+    </h2>
+    <% kalsarpaData.data.remedies.forEach((val) => { %>
+      <p class="leading-relaxed mb-6 text-sm" style="color: #724121;">
+        <%= customer.lang === 'hi' ? val : val %>
+      </p>
+    <% }) %>
+
+    <h2 class="text-lg font-semibold mb-3 border-b border-purple-300 pb-2" style="color: #724121;">
+      <%= customer.lang === 'hi' ? 'आपकी कुंडली में कालसर्प दोष की उपस्थिति' : 'Presence Of Kalsarpa Dosha In Your Horoscope' %>
+    </h2>
+    <% } %>
+</div>

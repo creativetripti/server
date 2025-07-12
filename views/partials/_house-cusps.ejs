@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>House Cusps</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-white p-8 font-[Segoe_UI]">
+    <div class="max-w-[1100px] mx-auto">
+      <h2 class="text-center text-[28px] mb-1" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'भाव संधि' : 'House Cusps' %>
+      </h2>
+      <div class="w-full text-center mb-6">
+        <span class="inline-block w-20 h-1 rounded" style="background-color: #724121;"></span>
+      </div>
+
+      <div class="w-full text-center mb-4 font-bold text-lg" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'लग्न – 25:43:38 दशम भाव – 8:38:24' : 'Ascendant – 25:43:38 &nbsp;&nbsp; Midheaven – 8:38:24' %>
+      </div>
+
+      <table class="w-full text-sm border-collapse rounded-lg shadow-md overflow-hidden">
+        <thead class="text-white" style="background-color: #724121;">
+          <tr>
+            <th class="text-left px-3 py-2"><%= customer.lang === 'hi' ? 'भाव' : 'House' %></th>
+            <th class="text-left px-3 py-2"><%= customer.lang === 'hi' ? 'राशि' : 'Sign' %></th>
+            <th class="text-left px-3 py-2"><%= customer.lang === 'hi' ? 'भाव मध्य' : 'Bhav Madhya' %></th>
+            <th class="text-left px-3 py-2"><%= customer.lang === 'hi' ? 'राशि' : 'Sign' %></th>
+            <th class="text-left px-3 py-2"><%= customer.lang === 'hi' ? 'भाव संधि' : 'Bhav Sandhi' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-3 py-2">1</td>
+            <td class="px-3 py-2">Capricorn</td>
+            <td class="px-3 py-2">25:43:38</td>
+            <td class="px-3 py-2">Capricorn</td>
+            <td class="px-3 py-2">12:52:45</td>
+          </tr>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-3 py-2">2</td>
+            <td class="px-3 py-2">Aquarius</td>
+            <td class="px-3 py-2">29:49:5</td>
+            <td class="px-3 py-2">Aquarius</td>
+            <td class="px-3 py-2">12:46:21</td>
+          </tr>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-3 py-2">3</td>
+            <td class="px-3 py-2">Aries</td>
+            <td class="px-3 py-2">3:54:33</td>
+            <td class="px-3 py-2">Pisces</td>
+            <td class="px-3 py-2">16:51:49</td>
+          </tr>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-3 py-2">4</td>
+            <td class="px-3 py-2">Taurus</td>
+            <td class="px-3 py-2">8:38:24</td>
+            <td class="px-3 py-2">Aries</td>
+            <td class="px-3 py-2">20:57:16</td>
+          </tr>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-3 py-2">5</td>
+            <td class="px-3 py-2">Gemini</td>
+            <td class="px-3 py-2">3:40:0</td>
+            <td class="px-3 py-2">Taurus</td>
+            <td class="px-3 py-2">20:50:50</td>
+          </tr>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-3 py-2">6</td>
+            <td class="px-3 py-2">Gemini</td>
+            <td class="px-3 py-2">29:20:0</td>
+            <td class="px-3 py-2">Gemini</td>
+            <td class="px-3 py-2">16:30:0</td>
+          </tr>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-3 py-2">7</td>
+            <td class="px-3 py-2">Cancer</td>
+            <td class="px-3 py-2">25:43:38</td>
+            <td class="px-3 py-2">Cancer</td>
+            <td class="px-3 py-2">12:1:0</td>
+          </tr>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-3 py-2">8</td>
+            <td class="px-3 py-2">Leo</td>
+            <td class="px-3 py-2">29:32:48</td>
+            <td class="px-3 py-2">Leo</td>
+            <td class="px-3 py-2">12:16:24</td>
+          </tr>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-3 py-2">9</td>
+            <td class="px-3 py-2">Libra</td>
+            <td class="px-3 py-2">4:5:36</td>
+            <td class="px-3 py-2">Virgo</td>
+            <td class="px-3 py-2">16:49:12</td>
+          </tr>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-3 py-2">10</td>
+            <td class="px-3 py-2">Scorpio</td>
+            <td class="px-3 py-2">8:38:24</td>
+            <td class="px-3 py-2">Libra</td>
+            <td class="px-3 py-2">21:21:60</td>
+          </tr>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-3 py-2">11</td>
+            <td class="px-3 py-2">Sagittarius</td>
+            <td class="px-3 py-2">4:20:8</td>
+            <td class="px-3 py-2">Scorpio</td>
+            <td class="px-3 py-2">21:29:16</td>
+          </tr>
+          <tr class="bg-white even:bg-[#f4f4f4]">
+            <td class="px-3 py-2">12</td>
+            <td class="px-3 py-2">Capricorn</td>
+            <td class="px-3 py-2">01:53</td>
+            <td class="px-3 py-2">Sagittarius</td>
+            <td class="px-3 py-2">17:11</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="flex w-full mt-8 gap-0">
+        <div class="flex-1 text-sm leading-relaxed px-4 py-2" style="color: #724121;">
+          <p>
+            <%= customer.lang === 'hi' ? 'भाव संधि विभिन्न भावों के बीच वैचारिक विभाजनों को चित्रित करती है, ठीक उसी तरह जैसे राशि संधि राशियों के बीच विभाजनों को चिह्नित करती है। ये संधियाँ प्रमुखता की स्थिति रखती हैं, प्रत्येक भाव के भीतर महत्वपूर्ण और प्रभावशाली बिंदुओं का प्रतिनिधित्व करती हैं। इन संधियों पर स्थित ग्रह सबसे शक्तिशाली प्रभाव डालते हैं, उस विशेष भाव से जुड़े मूलभूत सार और प्रभाव को मूर्त रूप देते हैं।' : 'House cusps delineate the conceptual divisions between different Houses, much like how Sign cusps mark the divisions between Signs. These cusps hold a position of prominence, representing the pivotal and influential points within each house. Planetary placements situated at these cusps exert the most potent influence, embodying the quintessential essence and impact associated with that particular house.' %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

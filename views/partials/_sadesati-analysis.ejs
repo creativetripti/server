@@ -1,0 +1,71 @@
+<%# views/partials/_sadesati-analysis.ejs %>
+
+<div class="space-y-6">
+  <h1 class="text-center text-2xl font-semibold mb-5 relative pb-3 section-title" style="color: #724121;">
+    <%= customer.lang === 'hi' ? 'साढ़े साती विश्लेषण' : 'Sadhesati Analysis' %>
+  </h1>
+  <div class="flex">
+    <div class="flex justify-center">
+      <img src="<%= sadesati.img %>" width="100px" height="auto" alt="Sadhesati Image" class="mx-auto">
+    </div>
+    <div class="flex w-full">
+      <div class="custom-table-container mx-auto rounded-md" style="max-width: 400px;"> <%# Added max-width for table %>
+        <h2 class="text-xl font-semibold mb-3 text-center" style="color: #724121;">
+          <%= customer.lang === 'hi' ? 'आपकी कुंडली में साढ़े साती की उपस्थिति' : 'Presence Of Sadhesati In Your Horoscope' %>
+        </h2>
+        <table class="w-full text-left custom-table">
+          <thead>
+            <tr class="custom-table-header">
+              <th class="p-3 text-white" style="background-color: #724121;"><%= customer.lang === 'hi' ? 'विशेषता' : 'Attribute' %></th>
+              <th class="p-3 text-white" style="background-color: #724121;"><%= customer.lang === 'hi' ? 'मूल्य' : 'Value' %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% Object.entries(sadesati.sadesati.data.sadhesati).forEach(([label, value], index) => { %>
+            <tr class="<%= index % 2 === 0 ? 'bg-white' : 'bg-[#f4f4f4]' %>">
+              <td class="p-3 font-medium" style="color: #724121;">
+                <% if (customer.lang === 'hi') { %>
+                  <% if (label === 'is_under_sadhesati') { %>साढ़े साती के अधीन है
+                  <% } else if (label === 'sadhesati_impact') { %>साढ़े साती का प्रभाव
+                  <% } else if (label === 'sadhesati_phase') { %>साढ़े साती चरण
+                  <% } else if (label === 'sadhesati_start_date') { %>साढ़े साती प्रारंभ तिथि
+                  <% } else if (label === 'sadhesati_end_date') { %>साढ़े साती समाप्ति तिथि
+                  <% } else { %>
+                    <%= label.replace(/_/g, ' ').toUpperCase() %>
+                  <% } %>
+                <% } else { %>
+                  <%= label.replace(/_/g, ' ').toUpperCase() %>
+                <% } %>
+              </td>
+              <td class="p-3" style="color: #724121;">
+                <% if (customer.lang === 'hi') { %>
+                  <% if (typeof value === 'boolean') { %>
+                    <%= value ? 'हाँ' : 'नहीं' %>
+                  <% } else if (value === 'Very High') { %>बहुत उच्च
+                  <% } else if (value === 'High') { %>उच्च
+                  <% } else if (value === 'Medium') { %>मध्यम
+                  <% } else if (value === 'Low') { %>कम
+                  <% } else if (value === 'First Phase') { %>पहला चरण
+                  <% } else if (value === 'Second Phase') { %>दूसरा चरण
+                  <% } else if (value === 'Third Phase') { %>तीसरा चरण
+                  <% } else { %>
+                    <%= value %>
+                  <% } %>
+                <% } else { %>
+                  <%= value %>
+                <% } %>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <h2 class="text-xl font-semibold mb-3" style="color: #724121;"><%= customer.lang === 'hi' ? sadesati.sadesati.data.content.title_hi : sadesati.sadesati.data.content.title %></h2>
+  <% sadesati.sadesati.data.content.description.forEach((val) => { %>
+  <p class="leading-relaxed my-2" style="color: #724121;"><%= customer.lang === 'hi' ? val : val %></p>
+  <% }) %>
+
+
+</div>

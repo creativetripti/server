@@ -1,0 +1,28 @@
+<% if (showMeta) { %>
+  <div class="flex items-center justify-center gap-6 mb-6">
+    <img src="<%= data.image %>" class="w-20 h-20" />
+    <div>
+      <h2 class="text-2xl font-semibold" style="color: #724121;"><%= customer.lang === 'hi' ? 'ग्रहों की स्थिति' : data.planet %></h2>
+      <p class="text-sm" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'राशि' : 'Sign' %>: <%= data.sign %> (<%= customer.lang === 'hi' ? 'सं.' : 'No' %>: <%= data.sign_no %>)
+      </p>
+      <p class="text-sm" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'भाव' : 'House' %>: <%= data.house %>
+      </p>
+      <p class="text-sm" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'देशांतर' : 'Longitude' %>: <%= data.longitude %>
+      </p>
+      <p class="text-sm" style="color: #724121;">
+        <%= customer.lang === 'hi' ? 'स्वामी' : 'Lord' %>: <%= data.lord %>
+      </p>
+    </div>
+  </div>
+<% } %>
+
+<h3 class="text-lg font-bold mb-2" style="color: #724121;">
+  <%= customer.lang === 'hi' ? 'भाव या राशि में ग्रह' : 'Planet in ' + (type === 'house' ? 'House' : 'Sign') %>
+</h3>
+
+<% text.split('\n\n').forEach(p => { %>
+  <p class="text-sm leading-relaxed text-justify mb-2 z-30" style="color: #724121;"><%- p.replace(/\n/g, ' ') %></p>
+<% }) %>

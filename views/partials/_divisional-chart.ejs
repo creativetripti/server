@@ -1,0 +1,57 @@
+<div class="w-full flex flex-wrap justify-center gap-x-6 gap-y-6">
+  <%
+  const chartNameMapEn = {
+    "D1": "Birth Chart",
+    "D2": "Hora Chart",
+    "D3": "Drekkana Chart",
+    "D7": "Saptamsha Chart",
+    "D9": "Navamsha Chart",
+    "D10": "Dasamsha Chart",
+    "D12": "Dwadasamsha Chart",
+    "D16": "Shodasamsha Chart",
+    "D20": "Vimshamsha Chart",
+    "D24": "Siddhamsha Chart",
+    "D27": "Bhamsamsha Chart",
+    "D30": "Trishamsha Chart",
+    "D40": "Khavedamsha Chart",
+    "D45": "Akshavedamsha Chart",
+    "D60": "Shashtyamsha Chart"
+  };
+
+  const chartNameMapHi = {
+    "D1": "जन्म कुंडली",
+    "D2": "होरा चार्ट",
+    "D3": "द्रेशकाण चार्ट",
+    "D7": "सप्तमांश चार्ट",
+    "D9": "नवमांश चार्ट",
+    "D10": "दशमांश चार्ट",
+    "D12": "द्वादशांश चार्ट",
+    "D16": "षोडशांश चार्ट",
+    "D20": "विंशांश चार्ट",
+    "D24": "सिद्धांश चार्ट",
+    "D27": "भमशांश चार्ट",
+    "D30": "त्रिशांश चार्ट",
+    "D40": "खवेदांश चार्ट",
+    "D45": "अक्षवेदांश चार्ट",
+    "D60": "षष्ट्यंश चार्ट"
+  };
+  %>
+
+  <% charts.slice(0, 9).forEach(chart => { %>
+  <div class="w-[200px] text-center divisional-chart-card">
+    <h3 class="text-md font-semibold mb-2 whitespace-nowrap" style="color: #724121;">
+      <% if (customer.lang === 'hi') { %>
+      <%= chartNameMapHi[chart.chartId] || chart.name %>
+      <% } else { %>
+      <%= chartNameMapEn[chart.chartId] || chart.name %>
+      <% } %>
+    </h3>
+
+    <% if (chart.data?.data?.base64_image || chart.data?.data?.chart?.base64_image) { %>
+    <img src="<%= chart.data?.data?.base64_image || chart.data?.data?.chart?.base64_image %>" alt="<%= chart.chartId || chart.name %> Chart" class="w-[200px] h-auto border border-gray-300 rounded shadow" />
+    <% } else { %>
+    <p class="text-red-500 text-sm"><%= customer.lang === 'hi' ? 'चार्ट उपलब्ध नहीं है' : 'Chart not available' %></p>
+    <% } %>
+  </div>
+  <% }); %>
+</div>

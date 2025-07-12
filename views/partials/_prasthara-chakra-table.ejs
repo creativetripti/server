@@ -1,0 +1,97 @@
+<%# views/partials/_prasthara-chakra-table.ejs - Displays a single Prasthara Chakra table %>
+
+<% /* This partial expects 'tableData' object: { title, headers, rows } */ %>
+
+<%
+const rashiNamesMap = {
+    "Aries": "मेष",
+    "Taurus": "वृषभ",
+    "Gemini": "मिथुन",
+    "Cancer": "कर्क",
+    "Leo": "सिंह",
+    "Virgo": "कन्या",
+    "Libra": "तुला",
+    "Scorpio": "वृश्चिक",
+    "Sagittarius": "धनु",
+    "Capricorn": "मकर",
+    "Aquarius": "कुंभ",
+    "Pisces": "मीन",
+    "Total": "कुल योग",
+    "Rashi Pinda": "राशि पिंड",
+    "Graha Pinda": "ग्रह पिंड",
+    "Sign": "राशि"
+};
+
+const headerNamesMap = {
+    "Sign": "राशि",
+    "Sun": "सूर्य",
+    "Moon": "चंद्रमा",
+    "Mars": "मंगल",
+    "Mercury": "बुध",
+    "Jupiter": "बृहस्पति",
+    "Venus": "शुक्र",
+    "Saturn": "शनि",
+    "Ascendant": "लग्न"
+};
+
+const translateText = (text, lang) => {
+    if (lang === 'hi') {
+        return rashiNamesMap[text] || headerNamesMap[text] || text;
+    }
+    return text;
+};
+%>
+
+<div class="w-full text-left">
+    <h2 class="text-center text-xl font-semibold mb-5 relative pb-3 section-title" style="color: #724121;">
+        <%= customer.lang === 'hi' ? translateText(tableData.title, 'hi') : tableData.title %>
+    </h2>
+
+    <% if (tableData.rows && tableData.rows.length > 0) { %>
+        <div class="overflow-x-auto w-full mb-8">
+            <table class="w-full text-left text-sm table-auto">
+                <thead>
+                    <tr class="text-white text-xs" style="background-color: #724121;">
+                        <% tableData.headers.forEach(header => { %>
+                            <th class="px-2 py-3 text-center whitespace-nowrap"
+                                style="width: <%= header === 'Sign' ? '80px' : '60px' %>;">
+                                <%= translateText(header, customer.lang) %>
+                            </th>
+                        <% }); %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% tableData.rows.forEach((row, rowIndex) => { %>
+                        <%
+                            let rowClass = 'text-xs';
+                            let textColor = '#724121'; // Default text color
+                            let bgColor = rowIndex % 2 === 0 ? '#ffffff' : '#f9fafb'; // Default background colors
+
+                            if (row.Sign === 'Total' || row.Sign === 'Rashi Pinda' || row.Sign === 'Graha Pinda') {
+                                rowClass += ' font-bold';
+                                bgColor = '#FAE5D3'; // Lighter shade of #724121 for emphasis
+                                textColor = '#724121'; // Keep text dark for contrast
+                            }
+                        %>
+                        <tr class="<%= rowClass %>" style="background-color: <%= bgColor %>;">
+                            <% tableData.headers.forEach((header, colIndex) => { %>
+                                <td class="px-2 py-3 text-center <%= colIndex === 0 ? 'text-left font-medium' : '' %>" style="color: <%= textColor %>;">
+                                    <% if (header === 'Sign') { %>
+                                        <%= translateText(row[header], customer.lang) %>
+                                    <% } else { %>
+                                        <%= row[header] %>
+                                    <% } %>
+                                </td>
+                            <% }); %>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+        <p class="text-center mt-5" style="color: #724121;">
+            <%= customer.lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं है: ' : 'No data available for ' %>
+            <%= customer.lang === 'hi' ? translateText(tableData.title, 'hi') : tableData.title %>.
+        </p>
+    <% } %>
+</div>

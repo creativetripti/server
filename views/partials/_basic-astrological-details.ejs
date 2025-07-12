@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="<%= customer.lang === 'hi' ? 'hi' : 'en' %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= customer.lang === 'hi' ? 'बुनियादी ज्योतिषीय विवरण' : 'Basic Astrological Details' %></title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 3. CSS styles including the layout fix */
+
+        /* Apply the imported fonts. Use Roboto as a fallback for English. */
+        body {
+            font-family: 'Roboto', 'Noto Sans Devanagari', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #fdfdfd;
+        }
+
+        .page-content-area {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .h-1 {
+            font-size: 1.75rem; /* 28px */
+            font-weight: bold;
+            color: #724121; /* Changed to #724121 */
+            margin-bottom: 5rem; /* 32px */
+        }
+
+        .kundali-tables-flex-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px; /* Space between the table containers */
+            justify-content: center;
+        }
+
+        .custom-table-container {
+            flex: 1 1 300px; /* Flex properties for responsive columns */
+            min-width: 300px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .custom-table-header {
+            background-color: #724121; /* Changed to #724121 */
+            color: white; /* Text color is white when background is #724121 */
+            padding: 8px 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            /* CRUCIAL FIX: Remove any margin from the header */
+            margin: 0;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+             /* CRUCIAL FIX: Remove any margin from the table */
+            margin: 0;
+        }
+
+        .custom-table td {
+            padding: 6px 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+
+        /* Style the first cell in each row to act as a label */
+        .custom-table tr td:first-child {
+            font-weight: bold;
+            color: #333;
+            width: 40%;
+        }
+
+        .custom-table tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-content-area">
+    <div class="text-center">
+        <h1 class="h-1 mb-3"><%= customer.lang === 'hi' ? 'बुनियादी ज्योतिषीय विवरण' : 'Basic Astrological Details' %></h1>
+    </div>
+    
+    <div class="kundali-tables-flex-grid mt-2">
+        <div class="custom-table-container">
+            <h3 class="custom-table-header"><%= customer.lang === 'hi' ? 'बुनियादी विवरण' : 'Basic Details' %></h3>
+            <table class="custom-table">
+                <tbody>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'जन्म तिथि' : 'Date of birth' %></td>
+                        <td><%= customer.dob %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'जन्म का समय' : 'Time of birth' %></td>
+                        <td><%= customer.tob %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'जन्म स्थान' : 'Place of birth' %></td>
+                        <td><%= customer.pob %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'अक्षांश' : 'Latitude' %></td>
+                        <td><%= kundaliData.data?.latitude %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'देशांतर' : 'Longitude' %></td>
+                        <td><%= kundaliData.data?.longitude %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'समयक्षेत्र' : 'Timezone' %></td>
+                        <td><%= kundaliData.data.timezone %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'अयनांश' : 'Ayanamsa' %></td>
+                        <td><%= kundaliData.data.ayanamsha %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'सूर्योदय' : 'Sunrise' %></td>
+                        <td><%= kundaliData.data.sunrise.split(' ')[1] %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'सूर्यास्त' : 'Sunset' %></td>
+                        <td><%= kundaliData.data.sunset.split(' ')[1] %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="custom-table-container">
+            <h3 class="custom-table-header"><%= customer.lang === 'hi' ? 'जन्म विवरण' : 'Birth Details' %></h3>
+            <table class="custom-table">
+                <tbody>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'नाम' : 'Name' %></td>
+                        <td><%= customer.name %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'जन्म तिथि' : 'Date of Birth' %></td>
+                        <td><%= customer.dob %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'जन्म का समय' : 'Time of Birth' %></td>
+                        <td><%= customer.tob %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'जन्म स्थान' : 'Place of Birth' %></td>
+                        <td><%= customer.pob %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'लिंग' : 'Gender' %></td>
+                        <td><%= kundaliData.data.gender %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'सूर्योदय' : 'Sunrise' %></td>
+                        <td><%= kundaliData.data.sunrise.split(' ')[1] %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'सूर्यास्त' : 'Sunset' %></td>
+                        <td><%= kundaliData.data.sunset.split(' ')[1] %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="custom-table-container">
+            <h3 class="custom-table-header"><%= customer.lang === 'hi' ? 'पंचांग विवरण' : 'Panchang Details' %></h3>
+            <table class="custom-table">
+                <tbody>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'तिथि' : 'Tithi' %></td>
+                        <td><%= kundaliData.data.tithi %> (<%= kundaliData.data.paksha %>)</td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'नक्षत्र' : 'Nakshatra' %></td>
+                        <td><%= kundaliData.data.nakshatra %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'वार' : 'Vaar' %></td>
+                        <td><%= kundaliData.data.vaar %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'योग' : 'Yoga' %></td>
+                        <td><%= kundaliData.data.yoga %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'करण' : 'Karana' %></td>
+                        <td><%= kundaliData.data.karana %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'अयनांश' : 'Ayanamsa' %></td>
+                        <td><%= kundaliData.data.ayanamsha %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="custom-table-container">
+            <h3 class="custom-table-header"><%= customer.lang === 'hi' ? 'ज्योतिषीय विवरण' : 'Astrological Details' %></h3>
+            <table class="custom-table">
+                <tbody>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'सूर्य राशि' : 'Sun Sign' %></td>
+                        <td><%= kundaliData.data.sunsign %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'चंद्र राशि' : 'Moon Sign' %></td>
+                        <td><%= kundaliData.data.moonsign %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'राशि अक्षर' : 'Rashi Akshar' %></td>
+                        <td><%= kundaliData.data.rashi_akshar %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'चंद्र मास' : 'Chandra Masa' %></td>
+                        <td><%= kundaliData.data.chandramasa %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'तत्व' : 'Tatva' %></td>
+                        <td><%= kundaliData.data.tatva %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'पाया' : 'Paya' %></td>
+                        <td><%= kundaliData.data.paya.type %> (<%= kundaliData.data.paya.result %>)</td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'गण' : 'Gana' %></td>
+                        <td><%= kundaliData.data.gana %></td>
+                    </tr>
+                    <tr>
+                        <td><%= customer.lang === 'hi' ? 'नाड़ी' : 'Nadi' %></td>
+                        <td><%= kundaliData.data.nadi %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
